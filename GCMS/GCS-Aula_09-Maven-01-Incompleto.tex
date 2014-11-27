@@ -1,0 +1,300 @@
+\documentclass[table]{beamer}
+
+\usepackage{GCS-Aula_00-Style}
+
+\input{GCS-Aula_00-Title.tex}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Introdução ao Maven}}
+\centerline{Parte 1}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{O que é Maven?}
+
+\begin{itemize}
+	\item Uma tentativa de definir Maven:
+	\begin{itemize}
+		\item Ferramenta para simplificar o processo de build.
+	\end{itemize}
+	\item \texttt{Build?}
+	\begin{itemize}
+		\item Tarefas rotineiras que levam a construção ou montagem de um software a partir do código fonte.
+	\end{itemize}
+	\item Tarefas rotineiras?
+	\begin{itemize}
+		\item Compilar, executar testes, empacotar aplicação, etc.
+	\end{itemize}
+	\item Outra tentativa de definir Maven:
+	\begin{itemize}
+		\item Um conjunto de padrões usados para gerenciar e descrever projetos em java.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Quais os benefícios do Maven?}
+
+\begin{itemize}
+	\item Modelo que pode ser aplicado aos projetos Java. 
+	\item A idéia é que o modelo traga mais transparência, mais reuso, mais facilidade de manutenção e entendimento.
+	\item Fornece uma abstração que a maioria dos desenvolvedores estão familiarizados:
+	\begin{itemize}
+		\item Semelhante a abstração do automóvel: se você aprendeu a dirigir em um modelo A de carro, então poderá facilmente dirigir um modelo B.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Quais os benefícios do Maven?}
+
+\begin{itemize}
+	\item Abordagem declarativa:
+	\begin{itemize}
+		\item POM --- Project Object Model.
+		\item A tarefas são delegadas para o POM e para os plugins.
+		\item Os desenvolvedores podem usar as tarefas (encapsuladas pelos plugins) sem necessariamente entender como elas funcionam internamente
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípios do Maven}
+
+\begin{itemize}
+	\item Convenções sobre a configuração
+	\item Reuso de lógicas de builds
+	\item Execução declarativa
+	\item Organização coerente de dependências
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípio 1: Convenção sobre a configuração}
+
+\begin{itemize}
+	\item Estratégia de ``propriedades \textit{defaults}" para a maioria das tarefas (podem ser alteradas quando conveniente) economiza tempo.
+	\item Convenções primárias:
+	\begin{itemize}
+		\item Estrutura de diretórios padrão para projetos
+		\begin{itemize}
+			\item Código fonte, recursos (xml, properties), saída de arquivos gerados, documentação etc
+		\end{itemize}
+		\item Cada projeto gera um único resultado: \texttt{jar, war, ear}...
+		\item Padrões de nomes
+		\begin{itemize}
+			\item Para diretórios: \texttt{my-app/src/main/java}
+			\item Para arquivos gerados (outputs):  \texttt{commons-logging-1.2.jar}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípio 2: Reuso de lógicas de \textit{builds}}
+
+\begin{itemize}
+	\item Toda a lógica de \textit{build} é encapsulada pelos \textit{plugins}
+	\item Um \textit{plugin} para
+	\begin{itemize}
+		\item Para compilar o código fonte
+		\item Para executar os testes de unidade
+		\item Para empacotar a aplicação (\texttt{jar, war, ear})
+		\item Para gerar javadocs
+		\item etc
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípio 3: Execução declarativa}
+
+\begin{itemize}
+	\item Tudo no maven é orientado de forma declarativa no \texttt{POM} e nas configurações específicas dos \textit{plugins}. Exemplo do \texttt{POM}:
+\end{itemize}
+
+\lstset{language=XML}
+\begin{lstlisting}
+<?xml version="1.0"  encoding="iso-8859-1"?>
+<country>
+    <name> France </name>
+    <city> Paris </city>
+    <region>
+        <name> Nord-Pas De Calais </name>
+        <population> 3996 </population>
+        <city> Lille </city>
+   </region>
+   <region>
+       <name> Valle du Rhone </name>
+       <city> Lyon </city>
+       <city> Valence </city>
+       </region>
+</country>
+\end{lstlisting}
+
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Automação Avançada}
+
+\begin{itemize}
+	\item Nem todas as ferramentas de automação podem executar build distribuída
+	\begin{itemize}
+		\item A maioria apenas fornece suporte ao processamento distribuído
+		\item A maioria das soluções dão suporte apenas a C/C++.
+	\end{itemize}
+	\item Um exemplo de solução de build distribuída é o IncrediBuild Xoreax para a plataforma Microsoft Visual Studio
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Automação Avançada}
+
+\begin{itemize}
+	\item IncrediBuild Xoreax:
+	\begin{figure}
+		\includegraphics[scale=0.6]{./images/xoreax-01.png}
+	\end{figure}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Vantagens}
+
+\begin{itemize}
+	\item Melhora a qualidade do produto
+	\begin{itemize}
+		\item Acelerar o processo de compilação e link
+		\item Eliminar tarefas redundantes
+		\item Minimiza as \emph{bad build}
+		\item Elimina a dependência de pessoa-chave
+		\item Possui histórico de versões e \emph{releases} para investigar problemas
+		\item Poupa tempo e dinheiro (por causa das razões listadas acima)
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Vantagens}
+
+\begin{itemize}
+	\item \textbf{On-Demand:} um usuário executa um script na linha de comando
+	\item \textbf{Automação agendadas:} um servidor de integração contínua executa uma \texttt{nightly build}
+	\item \textbf{Automação por evento:} um servidor de integração contínua executando uma build a cada commit de um sistema de controle de versão
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Script de Build}
+
+\begin{itemize}
+	\item Uma forma específica de automação de build é a criação de scripts de build (Makefiles). Isto é conseguido através de ferramentas como:
+	\begin{itemize}
+		\item GNU Automake
+		\item Cmake
+		\item Imake
+		\item Qmake
+		\item Apache Ant
+		\item Apache Maven
+		\item OpenMake Meister
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Script de Build}
+
+\begin{itemize}
+	\item Requisitos \textbf{básicos} de um sistema de build
+	\begin{itemize}
+		\item Processo de compilação incremental.
+		\item Build frequente durante a noite para detectar os problemas mais cedo.
+		\item Suporte à gerenciamento de dependência de código fonte.
+		\item Relatar que arquivos fonte deram origem à um determinado executável.
+		\item Construção rápida.
+		\item Relatórios sobre a construção, compilação e link.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Script de Build}
+
+\begin{itemize}
+	\item Requisitos \textbf{opcionais} de um sistema de build
+	\begin{itemize}
+		\item Gerar notas de lançamento e outros documentos, como páginas de ajuda.
+		\item Construir relatórios de status.
+		\item Relatórios de aprovação ou reprovação de teste.
+		\item Resumo dos recursos adicionados / modificados / excluídos a cada nova compilação.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

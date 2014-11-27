@@ -1,0 +1,643 @@
+\documentclass{beamer}
+
+\usepackage{GCS-Aula_00-Style}
+
+\input{GCS-Aula_00-Title.tex}
+
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Conceitos}}
+%\centerline{Parte 1}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Configuração}
+
+	\begin{itemize}
+		\item Configuração é o \underline{estado} em que um sistema se encontra em um determinado momento.
+		\item O sistema pode ser composto de todo tipo de elementos, como peças de hardware, artefatos eletrônicos ou não (documentos em papel) etc.
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Configuração de Software}
+
+	\begin{itemize}
+		\item Trata apenas dos elementos que se encontram em formato eletrônico, tais como: 
+		\begin{itemize}
+			\item Todos os arquivos fontes
+			\item Todos os documentos eletrônicos
+			\item As ferramentas de software utilizadas para construir ou mesmo ler estes \item arquivos
+			\item O sistema operacional utilizado
+			\item As bibliotecas de software etc
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Configuração de Software}
+
+	\begin{itemize}
+		\item Os itens que compreendem toda a informação produzida como parte do \underline{processo de software} são chamados coletivamente de configuração de software.
+		\item É a designação geral para o conjunto de \underline{itens de configuração}* de um projeto de software.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Itens de Configuração de Software}
+
+	\begin{itemize}
+		\item É a \underline{informação} criada como parte do processo de engenharia de software. (SCI, Pressman, 2006)
+		\item É a designação geral de qualquer \underline{artefato ou produto de software} mantido sob gestão de configuração/mudança.
+		\item São \underline{itens de informação} selecionados.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Itens de Configuração de Software}
+
+	\begin{itemize}
+		\item Em geral é:
+		\begin{itemize}
+			\item Um produto de software ou
+			\item Um produto de desenvolvimento de software
+		\end{itemize}
+		\item Deve possuir uma identificação única
+		\begin{itemize}
+			\item Regras de Nomenclatura devem ser utilizadas
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Itens de Configuração de Software}
+
+	\begin{itemize}
+		\item Exemplos:
+		\begin{itemize}
+			\item um plano de projeto
+			\item um cronograma
+			\item uma especificação de caso de uso
+			\item um modelo ou parte de um modelo
+			\item código-fonte *
+			\item um módulo executável ou componente, 
+			\item um arquivo de help
+			\item um script de teste
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Itens de Configuração de Software}
+
+	\begin{itemize}
+		\item Muitas organizações colocam também ferramentas de software sob controle de configuração. Ex:
+		\begin{itemize}
+			\item Versões específicas de editores
+			\item Compiladores
+			\item Navegadores
+			\item Outras ferramentas...
+		\end{itemize}
+		\item Importante para a \underline{Reproducibilidade}*
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Itens de Configuração de Software}
+
+	\begin{itemize}
+		\item Podem ser agrupados em Objetos de Configuração.
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.45]{./images/conceitos-ics.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{GC X GCS}
+
+	\begin{itemize}
+		\item A \textbf{Gerência de Configuração} como um todo trata dos elementos, incluindo hardware, necessários para a manutenção apropriada do sistema.
+		\item A \textbf{Gestão de Configuração de Software} trata especificamente dos elementos necessários a construção de sistemas de software, e em geral, controla apenas os elementos em formato eletrônico.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Versionamento}
+
+\begin{itemize}
+	\item Versionamento é a disciplina através da qual são preservadas as versões de um artefato, de modo sistemático e seguro, não limitado em número de versões.
+	\item A cada alteração consolidada no \underline{repositório}* uma nova versão do item deve ser gerada.
+	\item Todas as versões devem ser armazenadas e identificadas.
+	\item Revisões = versões individuais de cada item.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Versionamento}
+
+\begin{itemize}
+	\item Versão
+	\begin{itemize}
+		\item Estado definido de um objeto num dado momento.
+		\item ``Fotografia" do objeto.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Versionamento}
+
+\begin{itemize}
+	\item Tipos de versionamento:
+	\begin{itemize}
+		\item \textbf{Delta Negativo:} armazena-se integralmente a versão mais recente e as diferenças (deltas) existentes até então.
+		\item \textbf{Delta Positivo:} armazena-se a versão mais antiga e, para montar as versões mais recentes, processam-se as diferenças (deltas) armazenadas.
+		\item \textbf{DAG (direct acyclic graph):} armazena-se inteiramente cada versão e que versão a precedeu.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Versionamento}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/conceitos-versionamento-01.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Versionamento}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.3\textwidth} % Left column and width
+\begin{figure}
+\includegraphics[scale=0.5]{./images/conceitos-versionamento-02.png}
+\end{figure}
+
+\column{.7\textwidth} % Right column and width
+\begin{figure}
+\includegraphics[scale=0.5]{./images/conceitos-versionamento-03.png}
+\end{figure}
+
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Versionamento}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/conceitos-versionamento-04.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Versionamento}
+
+\begin{itemize}
+	\item Deve ser possível recuperar versões anteriores de um item.
+	\item Além de artefatos, podemos versionar configurações completas ou parciais de um software
+	\item É, portanto, aceitável falar-se em:
+	\begin{itemize}
+		\item Versão de um artefato (documento, cronograma, modelo, programa, etc)
+		\item Versão de um sistema
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Repositório}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/conceitos-repositorio.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Repositório}
+
+\begin{itemize}
+	\item É o conjunto de mecanismos e estruturas de dados que permite a uma equipe de software gerir modificação de modo efetivo.
+	\item É um local sob controle de acesso onde são armazenados os itens de configuração.
+\end{itemize}
+	
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Repositório}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/conceitos-repositorio-02.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Repositório}
+
+\begin{itemize}
+	\item Deve permitir:
+
+	\begin{itemize}
+		\item Controle de acesso
+	\item O versionamento dos elementos
+		\item Representar marcos de projeto ou versões de produção específicas
+		\item Pistas de auditoria das modificações: O que, quando, quem e por que.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Repositório}
+
+	\begin{itemize}
+		\item Existem diversas ferramentas de mercado:
+		\begin{itemize}
+			\item Rational ClearCase
+			\item IBM - ALM - RTC - Rational Team Concert
+			\item CVS (Concurrent Versions System)
+			\item Subversion
+			\item Git
+			\item Mercurial
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Área de Trabalho (Workspace)}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/conceitos-workspace-01.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Área de Trabalho (Workspace)}
+
+	\begin{itemize}
+		\item Um lugar onde o desenvolvedor possa trabalhar isoladamente sobre os seus artefatos enquanto ele finaliza uma tarefa sem interferências externas.
+		\item Utilizado para:
+		\begin{itemize}
+			\item Criação/edição de artefatos
+			\item Operações de gerenciamento
+			\item Consultas
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+	\frametitle{Área de Trabalho (Workspace)}
+
+	\begin{itemize}
+		\item Visões de Imagem (ou Visão Estática ou Snapshots): 
+		\begin{itemize}
+			\item Apresenta ao desenvolvedor um ambiente de trabalho estável e isento de mudanças. 
+			\item Quando um desenvolvedor deseja ``enxergar" mudanças realizadas por outros grupos, ele pode atualizar sua visão. 
+			\item Este formato de trabalho é conhecido por ``modelo pull", orientando sempre pela busca da informação desejada, ao invés de empurrar as mudanças.
+		\end{itemize}
+		\item Visões Dinâmicas: 
+		\begin{itemize}
+			\item Não armazenam nada localmente, dependem de atualizações imediatas realizadas através da rede. São recomendadas nas seguintes situações:
+			\begin{itemize}
+				\item Espaço restrito no ambiente do desenvolvedor
+				\item Necessidade de compartilhamento de certos objetos 
+				\item Membros de grupos virtuais necessitam trabalhar com as últimas versões de um código
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+	\begin{itemize}
+		\item Também chamadas de:
+		\begin{itemize}
+			\item Referenciais (Pressman)
+			\item Linhas de Referências
+			\item Linhas de Base
+			\item Linhas-base
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+	\begin{itemize}
+		\item ``\emph{Uma especificação ou produto que foi formalmente revisto e aprovado, o qual daí em diante serve como base para o desenvolvimento futuro e que pode ser modificado apenas por meio de procedimentos formais de controle de modificação}." (IEEE Std no. 610.12-1990)
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+	\begin{itemize}
+		\item Uma baseline é uma ``fotografia" de um conjunto de itens de configuração em um determinado momento do processo de desenvolvimento.
+		\item A configuração do software em um ponto discreto no tempo.
+		\item Normalmente é gerada ao final de uma fase do desenvolvimento ou demandada pelo líder do projeto.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+	\begin{itemize}
+	\item Representam Marcos no Projeto (\emph{Milestones}), ex:
+		\begin{itemize}
+			\item Final de especificação dos requisitos
+			\item Modelos documentados e revisados
+			\item Final da implementação de um módulo (incremento)
+			\item Erros encontrados e corrigidos (Testes, Homologação)
+			\item Implantação de uma Versão do Sistema
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/conceitos-baseline-ics.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+	\begin{itemize}
+		\item Origem da versão de todos os ambientes:
+		\begin{itemize}
+			\item Testes
+			\item Homologação
+			\item Produção
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/conceitos-baseline-01.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+	\begin{itemize}
+		\item Ferramentas possuem recursos próprios para a administração de baselines
+		\begin{itemize}
+			\item CVS, Subversion, Git: tag
+			\item ClearCase: Apply Label
+			\item RTC: Snapshot
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+\begin{figure}
+\includegraphics[scale=1]{./images/conceitos-baseline-02.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Baselines}
+
+\begin{figure}
+\includegraphics[scale=0.8]{./images/conceitos-baseline-03.jpg}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Integração}
+
+	\begin{itemize}
+		\item Atividade que consiste em ``juntar" partes do software conforme vão ficando prontas
+		\begin{itemize}
+			\item Participam da atividade de integração itens já testados isoladamente (teste de unidade)
+			\item A integração pode incluir sincronização entre modelo e código
+			\item O produto principal da integração é uma build
+		\end{itemize}
+		\item Pode representar uma ativade simples ou complexa, dependendo da natureza do projeto
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Build}
+
+	\begin{itemize}
+		\item A build é o resultado principal de uma integração
+		\item Representa uma versão que pode ser ainda incompleta do sistema em desenvolvimento, mas com certa estabilidade
+		\item Costuma apresentar limitações conhecidas
+		\item Pode incluir código-fonte, documentação, arquivos de configuração, base de dados, etc
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Build}
+
+	\begin{itemize}
+		\item Durante o projeto podem ser criadas várias \emph{builds}: a freqüência varia de acordo com a necessidade do projeto
+		\item Pode ser gerada automaticamente com a utilização de ferramentas
+		\item A política de geração das builds deve ser bem definida na estruturação do ambiente
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Reproducibilidade}
+
+	\begin{itemize}
+		\item A habilidade de reproduzir/gerar uma versão anterior do sistema.
+		\item A partir do conteúdo de uma baseline conseguir obter uma versão estável do produto do ambiente
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Reproducibilidade}
+
+	\begin{itemize}
+		\item \textbf{\emph{The Baseline Reproducibility Principle:}} Uma baseline deve ser reproduzível. Devemos ser capazes de reproduzir a ``configuração" e o conteúdo de todos os elementos necessários para reproduzir uma versão ``liberada" (\emph{released}) do produto. 
+(Brad Appleton)
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{CCB}
+
+	\begin{itemize}
+		\item Configuration Control Board --- Comitê de Controle da Configuração
+		\item Ou ainda CMCS (Comitê de Mudanças na Configuração do Software)
+		\item Tem autoridade para aprovar ou rejeitar solicitações de alterações.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{CCB}
+
+	\begin{itemize}
+		\item Responsabilidades:
+		\begin{itemize}
+			\item Analisar as solicitações de mudança
+			\item Controlar o escopo do projeto
+			\item Reuniões com freqüência adequada ao ritmo das solicitações de mudança
+			\item Envolver partes interessadas no processo de priorização e decisão
+			\item Balanço entre o nível de controle desejado e overhead suportado
+			\item Questões menores devem ser resolvidas pelo líder do projeto junto à equipe, reduzindo o overhead do CCB
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Características do CCB}
+
+	\begin{itemize}
+		\item Composição multidisciplinar: analista de negócio, SQA, gerente, cliente, arquiteto
+		\item Profissionais com grande capacidade de comunicação e negociação
+		\item Pode apresentar uma estrutura hierárquica dependendo do tamanho e da quantidade de partes interessadas e sistemas envolvidos
+		\item Em pequenos projetos pode ser representando unicamente pelo Líder de Projeto ou outro profissional designado.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Referências}
+	\begin{itemize}
+		\item PRESSMAN, R. S., \textbf{Engenharia de Software}, 6ª. ed., 2006.
+		\item HASS A. M. J., \textbf{Configuration Management Principles and Practice}, Addison Wesley, 432p, 2002.
+		\item FREDERICKS T., \textbf{Software Configuration and Integration Management}, Marquette University, 2001.
+		\item \textbf{PSDS: Processo SERPRO de Desenvolvimento de Soluções}, SERPRO, 2011.
+		\item Brad Appleton's ACME Blog
+		\url{http://bradapp.blogspot.com}
+	\end{itemize}
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document}

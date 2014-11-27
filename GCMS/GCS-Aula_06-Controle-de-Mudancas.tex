@@ -1,0 +1,520 @@
+\documentclass{beamer}
+
+\usepackage{GCS-Aula_00-Style}
+
+\input{GCS-Aula_00-Title.tex}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Gestão de Mudanças}}
+\centerline{Parte 1}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Gestão de Mudanças}
+\begin{itemize}
+	\item Deve ser definido um documento/procedimento padrão para que mudanças possam ser solicitadas
+	\item O artefato normalmente se chama Solicitação de Mudança (SM, em inglês CR)
+	\item A um conjunto de pessoas (CCB), deve ser dada a autoridade para decidir se uma mudança será ou não implementada
+	\item O processo é necessário para garantir que apenas mudanças avaliadas e aprovadas são realizadas
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Gestão de Mudanças}
+
+Tipos de Mudanças Comuns
+\begin{itemize}
+	\item Criação de Novas funcionalidades
+	\item Manutenções:
+		\begin{itemize}
+		\item Correção de Erros
+		\item Implementação de Melhorias
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Manutenção de Software}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/gm-manutencao-soft.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Manutenção de Software}
+
+\begin{itemize}
+\item Mudanças efetuadas no software {\bf depois} de sua liberação
+\item As alterações ocorrem por diversas razões, as quais determinam o {\bf tipo} de manutenção
+
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Tipos de Manutenção de Software}
+
+	\begin{itemize}
+	\item Manutenção Corretiva
+		\begin{itemize}
+			\item Identificar e corrigir erros
+		\end{itemize}
+	\item Manutenção Adaptativa
+	\begin{itemize}
+		\item Adaptar o software às mudanças ocorridas no ambiente (Normas, Leis, Mercado)
+		\item Novas gerações de hardware
+		\item Novos sistemas operacionais e software de apoio
+		\item Atualizações e modificações em equipamentos periféricos e outros elementos de sistema
+	\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Tipos de Manutenção de Software}
+
+	\begin{itemize}
+	\item Manutenção Melhoria/Evolutiva
+		\begin{itemize}
+			\item Modificar funções existentes
+			\item Incluir novas funções (novos requisitos)
+			\item Ampliar o escopo do software
+			\item Efetuar melhorias em geral
+		\end{itemize}
+	\item Manutenção Preventiva
+	\begin{itemize}
+		\item Melhorar a manutenibilidade ou confiabilidade futuras e fornecer uma base melhor para futuros melhoramentos
+	\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Sistema de Controle de Mudanças}
+
+	\begin{itemize}
+	\item {\em Uma coleção formal e documentada de procedimentos, sistemas de acompanhamento e níveis de aprovação para autorização de mudanças no projeto.} (PMBOK)
+	\item É um {\bf subsistema} do Sistema de Gerenciamento de Configuração
+	\end{itemize}
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Controle de Mudanças}
+
+\begin{figure}
+\includegraphics[scale=0.45]{./images/gm-scm.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Solicitações de Mudança}
+
+	\begin{itemize}
+	\item Informações que podem estar incluídas em uma SM:
+		\begin{itemize}
+			\item Identificação única
+			\item Solicitante
+			\item Descrição
+			\item Sistema/Projeto
+			\item Componente
+			\item Item a ser modificado
+			\item Classificação (melhoria, correção de defeito, outra)
+			\item Situação (nova, atribuída, finalizada, verificada, fechada)
+			\item Prioridade
+			\item Responsável, Participantes...
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Gestão das Mudanças}
+
+	\begin{itemize}
+	\item As mudanças devem ser avaliadas antes de serem efetuadas
+	\item Validade da requisição;
+	\item Análise do impacto;
+	\item Prioridade e estimativa de tempo;
+	\item Responsável:  CCB do item
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Gestão das Mudanças}
+
+	\begin{itemize}
+	\item O membro do CCB responsável por analisar a mudança deve:
+	\begin{itemize}
+		\item Analisar e documentar o impacto, consultando o cliente, se necessário;
+		\item Rever a severidade e definir a prioridade.
+	\end{itemize}
+	\item Caso a mudança seja válida, designar um responsável para efetuá-la;
+	\item Caso contrário, resolvê-la, informando a resolução tomada.
+	\begin{itemize}
+		\item Exemplos de resolução: inválida, duplicada, adiada.
+	\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Gestão das Mudanças}
+
+	\begin{itemize}
+	\item A alteração dos itens de configuração deve seguir os seguintes passos:
+	\begin{itemize}
+		\item Realizar alteração;
+		\item Atualizar item no repositório;
+		\item Registrar histórico de alterações;
+	\end{itemize}
+	\item Se necessário pode ser gerada uma nova baseline.
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Alterar Itens de Configuração}
+
+	\begin{itemize}
+	\item Realizar alteração
+	\begin{itemize}
+		\item Recuperar os itens a serem alterados, na versão correta, e realizar as alterações necessárias, em sua área de trabalho.
+	\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Alterar Itens de Configuração}
+
+	\begin{itemize}
+	\item Atualizar item no repositório
+	\begin{itemize}
+		\item Após a alteração ter sido verificada, deve-se atualizar o item no repositório;
+		\item No commit, deve-se informar o número da solicitação de mudança que motivou a alteração;
+		\item Lembre de verificar se está trabalhando no branch correto!
+	\end{itemize}
+	\item Marcar a solicitação de mudança como resolvida, descrevendo que alterações foram efetuadas.
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Ferramentas}
+
+	\begin{itemize}
+		\item Bug tracking e Issue tracking
+		\item Fornecem um controle de mudanças através de um workflow
+	\end{itemize}
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Ferramentas}
+
+	\begin{itemize}
+	\item Bug tracking e Issue tracking
+		\begin{itemize}
+			\item Bugzilla (perl)
+			\item Mantis (php)
+			\item Redmine (ruby)
+			\item Scarab (java)
+			\item JIRA (java)
+			\item RT (java)
+			\item ClearQuest (IBM Rational)
+			\item ...
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Bugzilla}
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.8\textwidth}
+	\begin{itemize}
+		\item \url{http://www.bugzilla.org/}
+		\item Ferramenta de bug tracking
+		\item Interface web
+		\item Usa CGI com scripts Perl
+		\item Geração de códigos HTML, CSS e Javascript
+		\item É suportado pelas plataformas UNIX, Linux e Windows
+		\item Utiliza banco de dados MySQL e um servidor web (Apache)
+	\end{itemize}
+
+\column{.2\textwidth}
+
+\begin{figure}[t]
+\includegraphics[scale=0.5]{./images/buggie.png}
+\end{figure}
+
+\end{columns}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Bugzilla}
+
+	\begin{itemize}
+		\item Registra os bugs e suas características
+		\item Permite organizar e gerenciar adequadamente
+		\item Anexação de arquivos
+		\item Comunicação através de e-mail
+		\item Integração com outros sistemas
+		\item Open source
+		\item Customizável
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Bugzilla: Ciclo de vida dos bugs}
+
+
+
+\begin{figure}
+\includegraphics[scale=0.3]{./images/bzLifecycle.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Bugzilla}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/bugzilla-7231-3.jpg}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Ferramentas}
+
+	\begin{itemize}
+		\item {\bf Issue tracking}: Além de bugs, os sistemas passaram a controlar os outros tipos de mudanças em software:
+		\begin{itemize}
+			\item Melhorias
+			\item Novas Funcionalidades
+			\item Requisição de Suporte
+			\item Tarefas
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Mantis}
+\begin{columns}[c]
+\column{.6\textwidth}
+	\begin{itemize}
+		\item \url{http://www.mantisbt.org/}
+		\item Ferramenta de issue tracking
+		\item Interface web
+		\item Free (GPL)
+		\item Integração com Git, SVN e CVS
+		\item Web Services
+		\item Várias formas de autenticação:
+		\begin{itemize}
+			\item Default Mantis Authentication 
+			\item LDAP
+			\item HTTP Basic Authentication Support 
+			\item Active Directory Integration
+		\end{itemize}
+	\end{itemize}
+
+\column{.4\textwidth}
+
+\begin{figure}[t]
+\includegraphics[scale=2]{./images/mantis_logo_262x90.png}
+\end{figure}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Mantis}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/mantis-view-issues.png}
+\end{figure}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Mantis}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/mt_login_page.png}
+\includegraphics[scale=0.5]{./images/mt_dashboard_page.png}
+\includegraphics[scale=0.5]{./images/mt_issues_page.png}
+\caption{App para smartphones}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Mantis}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/mantis_notifier.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Atlassian JIRA}
+\begin{columns}[c]
+\column{.7\textwidth}
+
+	\begin{itemize}
+		\item \url{https://www.atlassian.com/software/jira}
+		\item Ferramenta comercial
+		\item Interface Web
+		\item Feita Java, permite a extensão via plugins
+		\item Extremamente customizável: Perfis, Esquemas de Notificação
+		\item Construção de Workflows
+		\item Integração com CVS, SVN, GIT, Perforce
+	\end{itemize}
+	
+\column{.3\textwidth}
+
+\begin{figure}[t]
+\includegraphics[scale=0.8]{./images/jira_logo_landing.png}
+\end{figure}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Jira}
+
+\begin{itemize}
+		\item Pode ser usada como ferramenta para:
+		\begin{itemize}
+			\item Gestão de mudanças/bugs
+			\item Gestão ágil
+			\item Requisição de Suporte
+			\item Acompanhamento de service desk/suporte
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Jira: Workflow de uma issue}
+
+\begin{figure}
+\includegraphics[scale=0.3]{./images/jira_default_workflow.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Referências}
+	\begin{itemize}
+		\item PRESSMAN, R. S., \textbf{Engenharia de Software}, 6ª. ed., 2006.
+		\item HASS A. M. J., \textbf{Configuration Management Principles and Practice}, Addison Wesley, 432p, 2002.
+		\item FREDERICKS T., \textbf{Software Configuration and Integration Management}, Marquette University, 2001.
+		\item Bugzilla, disponível em: \url{http://www.bugzilla.org}
+		\item JIRA, disponível em: \url{http://www.atlassian.com}
+		\item Mantis, disponível em: \url{http://www.mantisbt.org}
+	\end{itemize}
+\end{frame}
+
+\end{document}

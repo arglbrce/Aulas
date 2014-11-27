@@ -1,0 +1,383 @@
+\documentclass{beamer}
+
+\usepackage{GCS-Aula_00-Style}
+
+\input{GCS-Aula_00-Title.tex}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Controle de Versões}}
+\centerline{Conceitos}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Problemas comuns}
+
+	\begin{itemize}
+		\item Quem alterou isto? Quando foi?
+		\item Pensando bem, é melhor como estava semana passada
+		\item Hein? Onde está o que eu fiz ontem?
+		\item Não deu certo meu teste. Preciso deixar o projeto como estava.
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Por que controlar versões?}
+
+	\begin{itemize}
+		\item Manutenção do histórico do projeto
+		\item Reproducibilidade 
+		\item Trabalho paralelo
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Tipos de Controle de Versão}
+
+	\begin{itemize}
+		\item Local
+		\item Centralizado
+		\item Distribuído
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Controle de Versão Local}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0101-tn.png}
+\caption {RCS, SCCS}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Prós e Contras}
+
+	\begin{itemize}
+		\item \textbf{Prós:} $\emptyset, \not \exists, \{\}, lim \rightarrow 0$
+		\item \textbf{Contras:} ultrapassado e limitado
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Controle de Versão Centralizado}
+
+\begin{figure}
+\includegraphics[scale=0.45]{./images/git-18333fig0102-tn.png}
+\caption {CVS, Subversion, Clearcase, Perforce, TFS - Team Foundation Service}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Prós e Contras}
+
+	\begin{itemize}
+		\item \textbf{Prós:} fácil compreensão do funcionamento; segurança
+		\item \textbf{Contras:} ponto único de falha; escalabilidade; dependência de conectividade 
+	\end{itemize}
+
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Controle de Versão Distribuído}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/git-18333fig0103-tn.png}
+\caption {Git, IBM-RTC, Mercurial, Bazaar, Monotone, BitKeeper}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Prós e Contras}
+
+	\begin{itemize}
+		\item \textbf{Prós:} menor dependência de conectividade; elimina ponto central de falha; branches locais;
+		\item \textbf{Contras:} segurança; ``quem tem a versão mais atual?"; gerenciamento mais complexo;
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Versionamento}
+
+\begin{figure}
+\includegraphics[scale=0.45]{./images/controle-versao-versionamento.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Ação: Adicionar ao Controle de Versões}
+
+	\begin{itemize}
+		\item Adicionar um elemento ao sistema de controle de versões gerando a sua primeira versão
+		\item Torna o elemento acessível aos usuários do repositório
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Ação: \emph{Checkout}}
+
+	\begin{itemize}
+		\item Obter um elemento do sistema de controle de versões
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/controle-versao-checkout.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Ação: \emph{Checkout}}
+
+	\begin{itemize}
+		\item Algumas ferramentas permitem dois tipos de checkout:
+		\begin{itemize}
+			\item {\bf Reservado} (\emph{lock-modify-unlock})
+			\begin{itemize}
+				\item $\downarrow$ Somente um usuário terá a posse do arquivo, {\bf não permitindo} o trabalho simultâneo.
+				\item $\uparrow$ Suas alterações irão constituir uma nova versão
+			\end{itemize}
+			\item {\bf Não Reservado} (\emph{copy-modify-merge})
+			\begin{itemize}
+				\item $\uparrow$ Vários usuários podem ter a posse do arquivo , {\bf permitindo} o trabalho simultâneo.
+				\item $\downarrow$ Não é garantido que a sua versão será consolidada.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Ação: \emph{Checkin}}
+
+	\begin{itemize}
+		\item Gravar as alterações no repositório gerando uma nova versão do elemento
+		\item Em algumas ferramentas chamado de \emph{Commit}
+		\item Em casos de \emph{Checkout} Não-reservado pode gerar conflito de versões
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/controle-versao-checkin.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Ação: \emph{Checkin} X Conflitos}
+
+\begin{figure}
+\includegraphics[scale=0.4]{./images/svn-conflito.jpg}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Ação: \emph{Update}}
+
+	\begin{itemize}
+		\item Obter uma versão mais recente do elemento do sistema de controle de versões
+		\item Não confundir ``atualizar" com ``versionar"
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/controle-versao-update.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Ação: \emph{Merge} (Fusão)}
+
+	\begin{itemize}
+		\item Consiste em verificar as diferencças entre as alterações feitas por usuário distintos sobre o mesmo arquivo a aplicar a fusão de conteúdo gerando uma nova versão
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.6]{./images/controle-versao-merge.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Ação: \emph{Merge} (Fusão)}
+
+	\begin{itemize}
+		\item Algumas ferramentas executam \emph{Merge} Automático em casos onde não há conflitos (alterações no mesmo trecho de código)
+		\item Em caso de conflito o usuário terá que executar o \emph{merge} entre a versão dele e a versão remota (do repositório)
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Ação: \emph{Branching} (Ramificação)}
+
+\begin{itemize}
+		\item Consiste em criar ramos paralelos de desenvolvimento (\emph{branches})
+		\item Por default, existe pelo menos um branch em um projeto, o Principal, também conhecido como \emph{mainline} ou \emph{trunk} ou \emph{HEAD}.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{\emph{Branching}: Estratégias}
+
+	\begin{itemize}
+		\item \emph{Release}
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=1]{./images/controle-versao-branch-per-release.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{\emph{Branching}: Estratégias}
+
+	\begin{itemize}
+		\item Promoção de Código
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=1]{./images/controle-versao-branch-per-code-promotion.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{\emph{Branching}: Estratégias}
+
+	\begin{itemize}
+		\item Tarefas
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=1]{./images/controle-versao-branch-per-task.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{\emph{Branching}: Estratégias}
+
+	\begin{itemize}
+		\item Componente
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=1]{./images/controle-versao-branch-per-component.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{\emph{Branching}: Estratégias}
+
+	\begin{itemize}
+		\item Technologia
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=1]{./images/controle-versao-branch-per-technology.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{\emph{Branching}: Estratégias}
+
+	\begin{itemize}
+		\item Feature/Topic
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.30, angle=90]{./images/controle-versao-branch-per-feature.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Referências}
+	\begin{itemize}
+		\item PRESSMAN, R. S., \textbf{Engenharia de Software}, 6ª. ed., 2006.
+		\item HASS A. M. J., \textbf{Configuration Management Principles and Practice}, Addison Wesley, 432p, 2002.
+		\item FREDERICKS T., \textbf{Software Configuration and Integration Management}, Marquette University, 2001.
+		\item BIRMELE C., \textbf{Branching and Merging Primer}, Visual Studio 2005 Technical Articles, 2006.
+		\item A successful Git branching model: \url{http://nvie.com/posts/a-successful-git-branching-model/}
+	\end{itemize}
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document}

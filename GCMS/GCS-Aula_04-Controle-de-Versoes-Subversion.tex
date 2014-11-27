@@ -1,0 +1,929 @@
+\documentclass{beamer}
+
+\usepackage{GCS-Aula_00-Style}
+
+\input{GCS-Aula_00-Title.tex}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Subversion}}
+\centerline{Parte 1}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Histórico}
+\begin{itemize}
+	\item No início de 2000, a CollabNet Inc. (http://www.collab.net) começou a procurar desenvolvedores para escrever um substituto para o CVS.
+	\item Em 2009, a CollabNet iniciou o processo de integração com a Apache Software Foundation (ASF).
+	\item No início de 2010, o SVN foi totalmente adotado pela ASF com sua nova página na web (http://subversion.apache.org), e foi rebatizado de "Apache Subversion".
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Características}
+
+\begin{itemize}
+	\item Controle de versão centralizado mais popular.
+	\item Substituiu o CVS.
+	\item Disponível para várias plataformas.
+	\item Plugins para várias ferramentas.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Arquitetura}
+
+\begin{figure}
+\includegraphics[scale=0.4]{./images/svn-arquitetura.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{URLs do Repositório}
+
+\begin{table}
+\begin{tabular}{l l}
+\toprule
+\textbf{Esquema} & \textbf{Método de Acesso}\\
+\midrule
+\texttt{file:///} & acesso direto ao repositório (em um disco local). \\
+\texttt{http://} & acesso via protocolo WebDAV em um servidor Apache. \\
+\texttt{https://} & mesmo que \texttt{http://}, mas com encriptação SSL. \\
+\texttt{svn://} & acesso via protocolo próprio em um servidor svnserve. \\
+\texttt{svn+ssh://} & mesmo que \texttt{svn://}, mas através de um túnel SSH. \\
+\bottomrule
+\end{tabular}
+\caption{URLs de Acesso ao Repositório}
+\end{table}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Componentes}
+	
+	\begin{itemize}
+		\item \textbf{svn:} Cliente de linha de comando
+		\item \textbf{svnversion:} Informa o estado (em termos de revisões) de uma cópia de trabalho
+		\item \textbf{svnlook:} Ferramenta para inspecionar um repositório
+		\item \textbf{svnadmin:} Ferramenta para criação, ajuste ou manutenção de um repositório
+		\item \textbf{mod\_dav\_svn:} Módulo plug-in para o Apache HTTP Server, usado para disponibilizar seu repositório a outros através da rede
+		\item \textbf{svnserve:} Programa servidor independente, executável como um processo; outra forma de disponibilizar o repositório a através da rede
+		\item \textbf{svndumpfilter:} Programa para filtragem de fluxos de um repositório Subversion
+		\item \textbf{svnsync:} Programa para espelhamento incremental de um repositório para outro através da rede
+		\item \textbf{svndump:} Ferramenta de backup
+	\end{itemize}
+	
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Instalação}
+
+	\begin{itemize}
+		\item Inicie o VirtualBox da sua estação
+		\item Inicie a VM Ubuntu disponível
+		\item O usuário é \textbf{gcs}
+		\item A senha é \textbf{gcs123}
+		\item Essa VM funcionará como o Servidor para as práticas
+		\item Tente sempre usar a mesma estação de trabalho
+	\end{itemize}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Instalação}
+
+	\begin{itemize}
+		\item Instale a última versão estável do SVN conforme indicado em: \url{http://subversion.apache.org/packages.html}
+		\item Para a versão Ubuntu, use o comando abaixo:
+		\begin{itemize}
+			\item \begin{verbatim}apt-get install subversion libapache2-svn			\end{verbatim}
+		\end{itemize}
+		\item Para a versão Windows, baixe o arquivo:
+		\begin{itemize}
+			\item svn-win32-X.Y.Z.zip
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Instalação}
+	
+	\begin{itemize}
+		\item Para Windows, instale o TortoiseSVN:
+		\begin{itemize}
+			\item \url{http://tortoisesvn.net/downloads.html}
+		\end{itemize}
+		\item Para Mac OS, SCPlugin:
+		\begin{itemize}
+			\item  \url{http://scplugin.tigris.org/files/documents/1368/47351/SCPlugin-0.8.2-SVN.1.6.5.dmg}
+		\end{itemize}
+	\end{itemize}
+	
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Instalação - Linux}
+	
+	\begin{itemize}
+		\item Através da linha de comando a seguir estaremos iniciando o servidor e definindo o diretório dos repositórios para a pasta:
+		\begin{itemize}
+			\item \begin{verbatim}mkdir -p ~/curso-gcs/repositorio-svn/\end{verbatim}
+			\item \begin{verbatim}svnserve -d -r ~/curso-gcs/repositorio-svn/\end{verbatim}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Instalação - Linux}
+	
+	\begin{itemize}
+		\item Com o servidor rodando, devemos criar um repositório através do comando \texttt{svnadmin}, criaremos então o repositório \textbf{teste} em:
+		\begin{itemize}
+			\item \begin{verbatim}~/curso-gcs/repositorio-svn/teste			\end{verbatim}
+			\item \begin{verbatim}svnadmin create ~/curso-gcs/repositorio-svn/teste\end{verbatim}
+		\end{itemize}
+		\item Observe que os repositórios podem ser criados em qualquer pasta que esteja vazia, mas apenas poderão ser acessados os repositórios criados a partir do repositório principal definido através do comando \texttt{svnserve}.
+	\end{itemize}
+
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Instalação - Configuração Servidor}
+	
+	\begin{itemize}
+		\item O comando \texttt{svnadmin} cria a estrutura básica do repositório que armazenará todos os dados.
+		\item Após a criação da estrutura inicial do repositório devemos editar o arquivo \texttt{svnserver.conf} que está na pasta:
+		\begin{itemize}
+			\item \begin{verbatim}~/curso-gcs/repositorio-svn/teste/conf	\end{verbatim}
+			\item \begin{verbatim}svnadmin create ~/curso-gcs/repositorio-svn/teste\end{verbatim}
+		\end{itemize}
+		\item Modifique o conteúdo do arquivo para:
+		\begin{itemize}
+			\item 
+\begin{verbatim}
+[general]
+anon-access = read
+auth-access = write
+password-db = passwd
+\end{verbatim}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Instalação - Configuração Servidor}
+	
+	\begin{itemize}
+		\item O termo {\bf anon-acess} define como será o acesso anônimo ao repositório, podemos definir como {\bf none}, {\bf read} ou {\bf write} para impedir o acesso anônimo, permitir somente leitura ou permitir para leitura e gravação respectivamente.
+		\item O termo {\bf auth-acess} define como poderá ser o acesso para usuários autorizados e pode ser definido com os mesmos valores none, read ou write.
+		\item O termo {\bf password-db} define o nome do arquivo contendo a lista de \texttt{usuário = senha} autorizados no repositório, no exemplo deveremos ter um arquivo chamado passwd a seguir um exemplo de um arquivo de senhas:
+		\begin{itemize}
+			\item 
+\begin{verbatim}
+[users]
+#user = pass
+joao = 123
+maria = abc	
+\end{verbatim}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Instalação - Configuração Servidor}
+	
+	\begin{itemize}
+		\item No exemplo, temos um repositório que permite leitura dos documentos através de um acesso anônimo e leitura e gravação para os usuários autenticados.
+		\item O acesso autorizado pode ser feito pelos usuários \texttt{joao} e \texttt{maria} através da senha \texttt{123} e \texttt{abc} respectivamente.
+		\item {\em Importante: tanto usuário como senha são case sensitive.}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Subversion}}
+\centerline{Parte 2}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{O Repositório}
+\begin{itemize}
+\item É um conjunto de módulos, configurações e credenciais de usuários.
+\begin{figure}
+\includegraphics[scale=0.4]{./images/svn-repositorio.png}
+\end{figure}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{O Módulo}
+\begin{itemize}
+\item É um conjunto de objetos e sub-diretórios.
+\begin{figure}
+\includegraphics[scale=0.4]{./images/svn-modulo.png}
+\end{figure}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{O Módulo}
+\begin{itemize}
+\item É a maior unidade na hierarquia que deve receber comandos. 
+\item Os comandos recebidos por um Módulo são propagados recursivamente a todos os objetos e diretórios dentro dele.
+\begin{figure}
+\includegraphics[scale=0.4]{./images/svn-modulo2.png}
+\end{figure}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Revisões}
+\begin{itemize}
+\item Uma operação \textbf{svn commit} publica as alterações feitas em qualquer número de arquivos e diretórios como uma única transação atômica.
+\item Cada vez que o repositório recebe um \textbf{commit}, é criado um novo estado da árvore de arquivos, chamado revisão.
+\item A cada revisão é atribuído um número único, maior do que o número atribuído é revisão anterior.
+\item A revisão inicial de um repositório recém criado é 0 e consiste em nada mais que um diretério raiz vazio.
+\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.4]{./images/ch02dia7.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Organização do repositório}
+	\begin{itemize}
+		\item Embora não exista obrigatoriedade, recomenda-se dividir os Módulos em diretórios que determinam estágios no desenvolvimento.
+		\begin{itemize}
+			\item Branches
+			\item Tags
+			\item Trunk
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Organização do repositório}
+	\begin{itemize}
+		\item \textbf{Branches:} Contém todo o código que foi ramificado a partir do tronco principal.
+		\item \textbf{Tags:} Sempre que uma nova versão é feita, uma nova marca será criada nesta pasta.
+		\item \textbf{Trunk:} é o tronco principal e que geralmente contém a versão mais recente do projeto.
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Organização do repositório}
+
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.5\textwidth} % Left column and width
+\textbf{Exemplo Lógico:}
+
+\dirtree{%
+ .1 /....
+ .2 /repositorio.
+ .3 /modulo1.
+ .4 /branches.
+ .4 /tags.
+ .4 /trunk.
+ .3 /modulo2.
+ .4 /branches.
+ .4 /tags.
+ .4 /trunk.
+}
+
+\column{.5\textwidth} % Right column and width
+\textbf{Exemplo Real:}
+
+\dirtree{%
+ .1 /....
+ .2 /sismed.
+ .3 /sismed-web.
+ .4 /branches.
+ .4 /tags.
+ .4 /trunk.
+ .3 /sismed-ejb.
+ .4 /branches.
+ .4 /tags.
+ .4 /trunk.
+}
+
+\end{columns}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Organização do repositório}
+
+\dirtree{%
+ .1 /....
+ .2 /sismed.
+ .3 /sismed-web.
+ .4 /branches.
+ .5 /V\_1\_0\_para\_V\_1\_1.
+ .6 /src.
+ .6 build.sh.
+ .4 /tags.
+ .5 /V\_1\_0.
+ .6 /src.
+ .6 build.sh.
+ .4 /trunk.
+ .5 /src.
+ .5 build.sh.
+}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Comandos}
+	Os comandos SVN tem uma nomenclatura própria, assim como conceitos que devem ser compreendidos para darmos início a um estudo mais profundo da ferramenta.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Colocando dados em seu Repositório}
+Há dois modos de colocar novos arquivos em seu repositório Subversion:
+	\begin{itemize}
+		\item {\tt svn import}
+		\begin{itemize}
+			\item é um modo rápido para copiar uma árvore de arquivos não versionada em um repositório, criando diretórios intermediários quando necessário. 
+			\item não requer uma cópia de trabalho {\tt checkout}, e seus arquivos são imediatamente submetidos ao repositório. 
+			\item Isto é tipicamente usado quando se tem uma árvore de arquivos existente que se quer adicioná-la ao controle de versão no repositório Subversion.
+		\end{itemize}
+		\item {\tt svn add}
+		\begin{itemize}
+			\item Agenda o arquivo, diretório, ou link simbólico para ser adicionado ao repositório. No próximo {\tt commit}, o artefato passará a fazer parte do diretório pai onde estiver. 
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Checkout Inicial}
+
+	\begin{itemize}
+		\item Na maioria das vezes, inicia-se o uso de um repositório Subversion fazendo um {\tt checkout} do projeto. 
+\item Fazer um {\tt checkout} de um repositório cria uma ``cópia de trabalho'' na máquina local. 
+\item Esta cópia contém o HEAD (revisão mais recente) do repositório Subversion que foi especificado no {\tt checkout}.
+	\end{itemize}
+
+
+\begin{verbatim}
+
+$ svn checkout http://svn.collab.net/repos/svn/trunk
+A    trunk/Makefile.in
+A    trunk/ac-helpers
+A    trunk/ac-helpers/install.sh
+A    trunk/ac-helpers/install-sh
+A    trunk/build.conf
+...
+Gerado cópia de trabalho para revisão 8810.
+
+\end{verbatim}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Ciclo Básico de Trabalho}
+
+	\begin{itemize}
+		\item Atualizar sua cópia de trabalho
+		\begin{itemize}
+			\item {\tt svn update}
+		\end{itemize}
+		\item Fazer alterações
+		\begin{itemize}
+			\item {\tt svn add}
+			\item {\tt svn delete}
+			\item {\tt svn copy}
+			\item {\tt svn move}
+		\end{itemize}
+		\item Verificar suas alterações
+		\begin{itemize}
+			\item {\tt svn status}
+			\item {\tt svn diff}
+		\end{itemize}
+		\item Possivelmente desfazer algumas alterações
+		\begin{itemize}
+			\item {\tt svn revert}
+		\end{itemize}
+		\item Resolver conflitos (combinar alterações de outros)
+		\begin{itemize}
+			\item {\tt svn update}
+			\item {\tt svn resolved}
+		\end{itemize}
+		\item Submeter suas alterações
+		\begin{itemize}
+			\item {\tt svn commit}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Examinando o Histórico}
+
+	\begin{itemize}
+		\item O repositório Subversion mantém um registro de cada modificação submetida, e permite a explorar este histórico examinando versões anteriores de seus arquivos e diretórios bem como os metadados a eles relacionados.
+		\item É possével realizar um {\tt checkout} do repositório para um estado exatamente como ele era em uma certa data ou em um determinado número de revisão no passado.
+		\begin{itemize}
+		\item {\tt svn log}
+			\begin{itemize}
+				\item Exibe informações tais como: mensagens de log com informações de data e autor anexadas és revisões, e quais caminhos mudaram em cada revisão.
+			\end{itemize}
+		\item {\tt svn diff}
+			\begin{itemize}
+				\item Exibe detalhes a nível das linhas de uma alteração em particular.
+			\end{itemize}
+		\item {\tt svn cat}
+			\begin{itemize}
+				\item Recupera um arquivo como ele era em uma dada revisão e exibe seu conteúdo na tela.
+			\end{itemize}
+		\item {\tt svn list}
+			\begin{itemize}
+				\item Exibe os arquivos em um diretório para uma dada revisão.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Às Vezes Você Só Precisa Limpar}
+
+	\begin{itemize}
+			\item  Se uma operação do Subversion é interrompida (se o processo for morto, ou se a máquina travar, por exemplo), o arquivo de log permanece no disco.
+			 \item Executando novamente os arquivos de log, o Subversion pode completar a operação previamente iniciadas, e a cópia de trabalho pode voltar para um estado consistente.
+		\begin{itemize}
+		\item {\tt svn cleanup}
+			\begin{itemize}
+				\item Varre a cópia de trabalho e executa quaisquer arquivos de log que esteja incompleto, removendo quaisquer impedimentos.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Propriedades}
+
+	\begin{itemize}
+		\item  Adicionalmente ao versionamento de seus arquivos e diretórios, o Subversion permite interfaces para adição, modificação e remoção de metadados versionados em cada um de seus arquivos e diretórios sob controle de versão.
+		\item Chamamos estes \textbf{metadados} de propriedades, e eles podem ser entendidos como tabelas de duas colunas que mapeiam nomes de propriedades a valores arbitrários anexados a cada item em sua cópia de trabalho.
+		\item Os nomes e valores das propriedades podem ser texto livre, com a restrição de que os nomes devem ser texto legível por humanos.
+		\item Podem ser versionadas, tal como o conteúdo textual de seus arquivos. 	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Propriedades}
+
+\begin{verbatim}
+
+$ svn propset copyright '(c) 2006 Red-Bean Software' calc/button.c
+property 'copyright' set on 'calc/button.c'
+$
+$ svn propset license -F /path/to/LICENSE calc/button.c
+property 'license' set on 'calc/button.c'
+$
+$ svn proplist calc/button.c
+Properties on 'calc/button.c':
+  copyright
+  license
+$ svn propget copyright calc/button.c
+(c) 2006 Red-Bean Software
+
+\end{verbatim}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Tag (Rótulo)}
+
+	\begin{itemize}
+		\item É uma fotografia do projeto em um dado tempo.
+		\item Uma TAG é gerada a partir de uma revisão.
+		\item Não deve haver alteração.
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/tag.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Lock / Release lock}
+
+	\begin{itemize}
+		\item Bloqueia/libera a operação de commit para apenas um usuário.
+		\item O usuário que bloquear um arquivo impede que os demais façam novos commits, impedindo o desenvolvimento, até que o arquivo seja liberado.
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.4]{./images/lock-release.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Branches (Ramos)}
+
+	\begin{itemize}
+		\item  Um \textbf{branch} é uma linha de desenvolvimento que existe independente de outra linha, e ainda, compartilham um histórico em comum.
+
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.8]{./images/ch04dia1.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Branches (Ramos)}
+
+	\begin{itemize}
+		\item  Um \textbf{branch} nada mais é que uma cópia do diretório {\tt trunk}
+		\item Se faz uma cópia do projeto no repositório usando o comando {\tt svn copy}.
+
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/ch04dia3.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Branches (Ramos)}
+
+	\begin{itemize}
+		\item Um \textbf{branch} sempre se inicia como cópia de outra coisa, e segue rumo próprio a partir desse ponto, gerando seu próprio histórico.
+
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.8]{./images/ch04dia4.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Copiando Modificações Entre Branches (Ramos)}
+
+	\begin{itemize}
+		\item Para projetos que tenham um grande numero de colaboradores, é comum que cada um tenha sua cópia de trabalho do \texttt{trunk}. 
+		\item Sempre que alguem precise fazer uma longa modificação que possa corromper o \texttt{trunk}, o procedimento padrão é criar um ramo privado e fazer os commits neste ramo até que todo o trabalho esteja concluido.
+		\item Deve-se continuamente compartilhar as modificações ao longo do trabalho, para não ``se isolar" e ter problemas de sincronização de código no futuro
+
+	\end{itemize}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Merge (diff-and-apply)}
+
+	\begin{itemize}
+		\item Faz a fusão (\texttt{merge}) de uma ramificação ({\tt branch}) com o tronco principal ({\tt trunk}) ou outros {\tt branches}.
+		\item O comando {\tt svn merge} aplica as diferenças diretamente na cópia de trabalho classificando-as como modificações locais.
+		\item O comando {\tt merge} usa os números das revisões parar realizar a fusão de código. %explicar melhor isso com exemplo
+		\item Usa propriedades para  {\tt svn:mergeinfo} para rastrear as fusões já realizadas.
+
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.25]{./images/branch-merge.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Merge (diff-and-apply): conceito chave}
+
+Duas árvores de repositório são comparadas, e a diferença é aplicada a uma cópia de trabalho.
+
+	\begin{itemize}
+		\item Uma árvore de repositório inicial (geralmente chamada de lado esquerdo da comparação),
+		\item Uma árvore de repositório final (geralmente chamada de lado direito da comparação),
+		\item Uma cópia de trabalho para receber as diferenças como modificação local (geralmente chamada de destino da fusão).
+
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Merge (diff-and-apply): conceito chave}
+
+	\begin{itemize}
+		\item Uma vez especificados estes três argumentos, as duas árvores são comparadas, e o resultado das diferenças são aplicadas sobre a cópia de trabalho de destino, como modificações locais.
+		\item Se o resultado for adequado se faz o {\tt commit}. 
+		\item Caso contrário, pode-se simplesmente reverter as mudanças com o comando {\tt svn revert}.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Ferramentas}
+
+	\begin{itemize}
+		\item TortoiseSVN: Integração com Windows Explorer
+		\item Subclise: Plugin Eclipse
+		\item SmartSVN: Desenvolvido em Java
+		\item KDESVN: Integração com o KDE
+		\item RabbitVCS: Integração com o Nautilus do Gnome
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/svn-ferramentas.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Subversion}}
+\centerline{Parte 3}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Prática}
+
+	\begin{itemize}
+		\item Verifique se o servidor SVN, no Linux, está no ar. Caso contrário execute o comando abaixo:
+		\begin{itemize}
+			\item \begin{verbatim}svnserve -d -r ~/curso-gcs/repositorio-svn/\end{verbatim}
+		\end{itemize}
+
+		\item Faça o {\tt checkout} do repositório para uma cópia local:
+		\begin{itemize}
+			\item \begin{verbatim}C:\curso-gcs\workspace\teste-joao\end{verbatim}
+		\end{itemize}
+
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/tortoisesvn-checkout.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Prática}
+
+	\begin{itemize}
+		\item Crie o módulo \textbf{Aplicativo} com a estrutura padrão: branches, tags e trunk.
+		\item Use o comando {\tt add} para incluir no repositório.
+		\item Use o comando {\tt commit} para persistir no repositório
+		\item Dentro do {\tt /trunk} crie dois arquivos:
+		\begin{itemize}
+			\item Classe.java
+			\item build.bat
+		\end{itemize}
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.7]{./images/prativa-svn-arvore-inicial.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Prática}
+
+	\begin{itemize}
+		\item Classe.java
+		\begin{itemize}
+			\item 
+\begin{minted}{java}
+/**
+ * Classe exemplo.
+ * @author desenvolvedor@email.com
+ */
+public class Classe {
+    /**
+     * Metodo inicial.
+     * @param args Argumento de linha de comando
+     */
+    public static void main(String[] args) {
+        // Comandos
+        System.out.println("Ola, mundo!");
+    }
+}
+\end{minted}
+		\end{itemize}
+		\item build.bat
+		\begin{itemize}
+			\item 
+\begin{minted}{bat}
+javac *.java
+\end{minted}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Prática}
+
+	\begin{itemize}
+		\item Use o comando \texttt{add} para incluir no repositório.
+		\item Use o comando \texttt{commit} para persistir no repositório.
+		\item Utilize o comando \texttt{tag} para criar uma marca da situação do \texttt{trunk} atual:
+		\begin{itemize}
+			\item \texttt{/Teste/Aplicativo/trunk} $\rightarrow$ \texttt{/Teste/Aplicativo/tags/V\_1\_0}
+		\end{itemize}
+		\item Utilize o comando \texttt{branch} para criar um ramo da tag \texttt{V\_1\_0}:
+		\begin{itemize}
+			\item \texttt{/Teste/Aplicativo/tags/V\_1\_0}  $\rightarrow$ \texttt{/Teste/Aplicativo/branches/V\_1\_0\_para\_V\_1\_1}
+		\end{itemize}
+		\item Utilize a funcionalidade \textit{Revision Graph} para visualizar o ramo criado.
+		\item Faça alterações no \texttt{branch} e \texttt{trunk} para ver o que mudou no gráfico.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Prática}
+
+Para testar o comando de \texttt{lock} é necessário fazer \texttt{checkout} com outro usuário:
+
+	\begin{itemize}
+		\item \begin{verbatim}C:\curso-gcs\workspace\teste-maria\end{verbatim}
+		\item Faça o bloqueio de um arquivo com o usuário \textbf{joao} e tente fazer \texttt{commit} com o usuário \textbf{maria}.
+		\item Faça uma alteração no arquivo com o usuário \textbf{joao}, faça \texttt{commit}, perceba que o \texttt{commit} libera o bloqueio.
+		\item O usuário  \textbf{maria} poderá fazer seu  \texttt{commit}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Prática}
+
+	\begin{itemize}
+		\item Instala a ferramenta KDiff para auxiliar nos {\tt merges}: \url{http://sourceforge.net/projects/kdiff3/files/kdiff3/0.9.97/}
+		\item Caso as alterações feitas pelos usuários sejam em linhas distintas, o merge será automático, mas necessita de verificação manual.
+		\item Caso as alterações feitas sejam na mesma linha, o merge não será automático. Será necessário a resolução de conflito.
+		\item Simule as duas situações e veja como se comporta:
+		\item Utilize as funções \textit{Edit conflicts} e \textit{Resolved...} do TortoiseSVN quando necessário
+		\item Faça o {\tt merge} de uma versão específica com um {\tt branch} ou {\tt trunk}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Prática}
+
+	\begin{itemize}
+		\item Para testar o comando de \texttt{merge}, devemos alterar os arquivos no branch:
+		\item Após isso, no \texttt{trunk}, devemos executar o comando \texttt{merge}
+		\item Devemos resolver os conflitos e gerar nova versão
+
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Prática}
+
+	\begin{itemize}
+		\item Exclua um arquivo através o comando  \texttt{delete} com o usuário  \texttt{joao}:
+		\item Atualize a cópia de trabalho do usuário \textbf{maria} para ver o resultado
+		\item Visualize o \texttt{log} dos arquivos para ver mais informações
+		\item Altere as propriedades de um arquivo
+		\item Recupere uma cópia de um arquivo excluído
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Referências}
+	\begin{itemize}
+		\item Version Control with Subversion: \url{http://svnbook.red-bean.com}
+		\item Pragmatic Version Control: Using Subversion (The Pragmatic Starter Kit Series)(2nd Edition)
+	\end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document}

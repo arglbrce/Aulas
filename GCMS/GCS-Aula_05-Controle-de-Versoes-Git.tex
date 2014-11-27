@@ -1,0 +1,1135 @@
+\documentclass{beamer}
+
+\usepackage{GCS-Aula_00-Style}
+
+\input{GCS-Aula_00-Title.tex}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Git}}
+\centerline{Parte 1}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Histórico}
+\begin{itemize}
+	\item Criado em 2005, por Linus Torvalds
+	\item Substituto do BitKeeper como ferramenta utilizada para controlar as versões do kernel do Linux
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Características}
+
+\begin{itemize}
+	\item Controle de versão distribuído
+	\item Padrão {\em de facto} atual
+	\item Extremamente rápido nas operações
+	\item Ótimo gerenciamento de merges e branches
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Características}
+
+\begin{itemize}
+	\item Snapshots, e não diferenças: fotografias
+	\item Quase todas operações são locais: permite trabalho {\em offline}
+	\item Tem Integridade: checksum SHA-1 string de 40 caracteres hexadecimais
+	\item Geralmente só adiciona dados: quase impossível perder dados
+	\item Três Estados: consolidado ({\em committed}), modificado ({\em modified}) e preparado ({\em staged})
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Armazenamento}
+
+\begin{itemize}
+	\item Outros SCV mantém como um conjunto de arquivos e as mudanças feitas a cada arquivo ao longo do tempo.
+\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.6]{./images/git-18333fig0104-tn.png}
+\caption{Ferramentas baseadas em diff (CVS, SVN, Perforce, Bazaar, ...)}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Armazenamento}
+
+\begin{itemize}
+	\item O Git armazena a nova versão de cada arquivo, e não o que mudou entre elas.
+	\item Considera que os dados são como um conjunto de snapshots (uma foto) de um mini-sistema de arquivos.
+\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0105-tn.png}
+\caption{Git armazena dados como snapshots do projeto ao longo do tempo.}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Estados de arquivos}
+
+\begin{itemize}
+	\item Estados de arquivos:
+	\begin{itemize}
+		\item {\bf Consolidado} ({\em committed}): dados são ditos consolidados quando estão seguramente armazenados em sua base de dados local
+		\item {\bf Modificado} ({\em modified}): Modificado trata de um arquivo que sofreu mudanças mas que ainda não foi consolidado na base de dados
+		\item {\bf Preparado} ({\em staged}): Um arquivo está como preparado quando você marca o arquivo modificado em sua versão corrente para que ele faça parte do {\em snapshot} do próximo {\em commit} (consolidação)
+	\end{itemize}
+	\item Áreas de um projeto:
+	\begin{itemize}
+		\item Diretório do Git ({\em git directory, repository})
+		\item Diretório de trabalho ({\em working directory})
+		\item Área de preparação ({\em staging area}).
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Áreas de um projeto}
+
+\begin{figure}
+\includegraphics[scale=0.4]{./images/git-18333fig0106-tn.png}
+\caption{Estados X Áreas}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Ciclo de Vida de um arquivo}
+
+\begin{figure}
+\includegraphics[scale=0.6]{./images/git-18333fig0201-tn.png}
+\caption{Ciclo de Vida}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Tipos de Objetos}
+
+\begin{itemize}
+		\item Blob
+		\item Tree
+		\item Commit
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Blob}
+
+\begin{itemize}
+		\item Armazena o conteúdo de um arquivo numa determinada versão
+		\item Possui um hash
+	\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-blob.jpg}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Tree}
+
+\begin{itemize}
+		\item  Lista o conteúdo do diretório e especifica quais nomes de arquivos são armazenados em quais {\em blobs}
+		\item Relaciona {\em blobs} ou outras {\em trees} em uma estrutura hierárquica
+		\item Possui um {\em hash}
+	\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-tree.jpg}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Commit}
+
+\begin{itemize}
+		\item Guarda metadados de um commit e a tree gerada por ele
+		\item Possui um hash
+	\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-commit.jpg}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Os dados no repositório...}
+
+\begin{figure}
+\includegraphics[scale=0.55]{./images/git-18333fig0301-tn.png}
+\caption{Dados de um repositório com um único commit}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Múltiplos commits}
+
+\begin{figure}
+\includegraphics[scale=0.55]{./images/git-18333fig0302-tn.png}
+\caption{Dados dos objetos Git para múltiplos commits.}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Múltiplos commits}
+
+\begin{figure}
+\includegraphics[scale=0.55]{./images/git-18333fig0903-tn.png}
+\caption{Dados dos objetos Git para múltiplos commits.}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Instalação}
+
+	\begin{itemize}
+		\item Inicie o VirtualBox da sua estação
+		\item Inicie a VM Windows disponível
+		\item Inicie a VM Linux disponível
+		\item O usuário é \textbf{gcs}
+		\item A senha é \textbf{gcs123}
+		\item Essa VM funcionará como o Servidor para as práticas
+		\item Tente sempre usar a mesma estação de trabalho
+	\end{itemize}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Instalação}
+
+	\begin{itemize}
+		\item Para a versão Ubuntu, use o comando abaixo:
+		\begin{itemize}
+			\item \begin{verbatim}apt-get install git	\end{verbatim}
+		\end{itemize}
+		\item Para a versão Windows, baixe o arquivo:
+		\begin{itemize}
+			\item MSysGit: \url{http://msysgit.github.com}
+			\item TortoiseGit: \url{https://code.google.com/p/tortoisegit/wiki/Download}
+
+		\end{itemize}
+		\item Para a versão Mac OS, baixe o arquivo:
+		\begin{itemize}
+			\item \url{http://code.google.com/p/git-osx-installer}
+		\end{itemize}
+		
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{O Essencial}
+
+	\begin{itemize}
+		\item Criando e obtendo projetos
+		\begin{itemize}
+			\item \textbf{init}
+			\item \textbf{clone}
+		\end{itemize}
+		\item O básico
+		\begin{itemize}
+			\item \textbf{add}
+			\item \textbf{status}
+			\item \textbf{diff}
+			\item \textbf{commit}
+			\item \textbf{reset}
+			\item \textbf{rm}
+			\item \textbf{mv}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{O Essencial}
+
+	\begin{itemize}
+		\item Ramos (Branch) e Fusão (Merge)
+		\begin{itemize}
+			\item \textbf{branch}
+			\item \textbf{checkout}
+			\item \textbf{merge}
+			\item \textbf{mergetool}
+			\item \textbf{log}
+			\item \textbf{stash}
+			\item \textbf{tag}
+		\end{itemize}
+		\item Compartilhando e Atualizando projetos
+		\begin{itemize}
+			\item \textbf{fetch}
+			\item \textbf{pull}
+			\item \textbf{push}
+			\item \textbf{remote}
+			\item \textbf{rebase}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Git}}
+\centerline{O Básico}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Inicializando um Repositório em um Diretório Existente}
+
+	\begin{itemize}
+		\item Crie uma pasta em \begin{verbatim}c:/curso-gcs/repositorio-git/meusite\end{verbatim}
+		\item Dentro da pasta {\tt meusite}, clique o botão da direita e escolha a opção {\em Git Init Here}
+		\item Ou escolha {\em Git Gui} e a opção {\em Criar novo repositório}
+		\item Ou escolha {\em Git Bash} e no {\tt shell}  digite {\tt git init}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fazendo mudanças}
+
+	\begin{itemize}
+		\item Crie um arquivo chamado {\em index.html}
+		\item 
+\begin{minted}{html}
+<html>
+<body>
+    <h1>Hello World!</h1>
+</body>
+</html>
+\end{minted}
+		\item Marque o arquivo para rastreado pelo Git: {\tt git add index.html}
+		\item Consolide o arquivo no repositório: {\tt git commit -m "adicionando Hello World"}
+		\item Git vai solicitar seu nome e email
+		\item Veja o {\tt log} da {\tt commit}: {\tt git log}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fazendo mudanças}
+
+	\begin{itemize}
+		\item Modifique o arquivo {\em index.html}
+		\item 
+\begin{minted}{html}
+<html>
+<head>
+    <title>Hello World in Git</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+</body>
+</html>
+\end{minted}
+		\item Tente fazer a consolidação {\tt git commit -m "Alterando Hello World"}
+	\end{itemize}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fazendo mudanças}
+	\begin{itemize}
+		\item Caso não consiga, use o comando {\tt add} para marcar o arquivo para consolidação e depois consolide.
+		\item Faça uma nova alteração no arquivo. Então para pular a Área de Prepração use o parâmetro {\tt -a}: {\tt git commit -a -m "mais alteracoes"}
+		\item Para  remover o arquivo do Git, use o comando {\tt rm} e depois consolide: {\tt git rm }
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fazendo mudanças}
+	\begin{itemize}
+		\item Modificando seu último {\tt commit}: {\tt git commit --amend}
+		\item Faça um {\tt commit}, adicione um novo arquivo e faça o {\tt git commit --amend}
+		\item Para tirar um arquivo da área de seleção use o comando: {\tt git reset HEAD <file>...}
+
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Git}}
+\centerline{Branching}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Branch}
+	\begin{itemize}
+		\item Um branch no Git é simplesmente um ponteiro móvel para um desses commits.
+		\item O nome do branch padrão no Git é {\bf master}.
+		\item O {\tt branch} principal ({\tt master branch}) aponta para o último {\tt commit} feito. 
+		\item A cada novo commit ele avança automaticamente.
+	\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.4]{./images/git-18333fig0303-tn.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Criando um Branch}
+	\begin{itemize}
+		\item {\tt git branch testing}: cria um novo ponteiro para o mesmo commit em que você está no momento
+	\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0304-tn.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Criando um Branch}
+	\begin{itemize}
+		\item Como o Git sabe o branch em que você está atualmente?
+		\item Ponteiro especial chamado {\bf HEAD}
+	\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0305-tn.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Criando um Branch}
+	\begin{itemize}
+		\item Para mudar para um branch existente, você executa o comando {\tt git checkout}
+		\item {\tt git checkout testing}
+	\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0306-tn.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Criando um Branch}
+	\begin{itemize}
+		\item Caso um {\tt commit} seja realizado no {\tt branch}, o {\bf HEAD} acompanha, mas o {\tt master} não.
+	\end{itemize}
+	
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0307-tn.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Criando um Branch}
+	\begin{itemize}
+		\item Voltar para o {\tt master} ({\tt git checkout master}) e realizar um novo {\tt commit} muda o histórico para a figura a seguir:
+	\end{itemize}
+	
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0309-tn.png}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Criando um Branch}
+	\begin{itemize}
+		\item Para remover o branch {\tt testing} e todos os commits use: {\tt git branch -D testing}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Tagging}
+	\begin{itemize}
+		\item Listando {\tt tags}: {\tt git tag} ou {git tag -l 'v1.4.2'}
+		\item Criando {\tt tags}:
+		\begin{itemize}
+			\item {\bf leve}: {\tt git tag v1.4} ou {\tt git tag  v1.2 9fceb02}
+			\begin{itemize}
+				\item Similar a uma branch que não muda --- é um ponteiro para um commit específico.
+			\end{itemize}
+			
+			\item {\bf anotada}: {\tt git tag -a v1.4 -m 'my version 1.4'}
+			\begin{itemize}
+				\item São objetos inteiros
+				\item Chave de verificação
+				\item Nome de quem criou a tag, email e data
+				\item Mensagem relativa à tag
+				\item Podem ser assinadas e verificadas com o GNU Privacy Guard (GPG)
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Git}}
+\centerline{Branch e Merge}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Branch e Merge}
+
+\begin{columns}[c]
+
+\column{.5\textwidth} % Left column and width
+\begin{itemize}
+\item Branch Básico: projeto que já possui alguns commits
+\item Apareceu em produção um bug: \#53
+\item Será criado um {\tt branch} para tratar a correção.
+\item Para criar um {\tt branch} e mudar para ele ao mesmo tempo: {\tt git checkout -b iss53}
+
+\end{itemize}
+
+\column{.5\textwidth} % Right column and width
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0310-tn.png}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0311-tn.png}
+\end{figure}
+
+\end{columns}
+	
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Branch e Merge}
+
+\begin{columns}[c]
+
+\column{.5\textwidth} % Left column and width
+\begin{itemize}
+\item Realize a correção: {\tt git commit -a -m 'adicionei um novo rodapé [issue 53]'}
+\item Apareceu em produção um bug: \#53
+\item Entretanto, adiaram a publicação e retornou-se para o {\bf master} : {\tt git checkout master}
+
+\end{itemize}
+
+\column{.5\textwidth} % Right column and width
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0312-tn.png}
+\end{figure}
+
+\end{columns}
+	
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Branch e Merge}
+
+\begin{columns}[c]
+
+\column{.5\textwidth} % Left column and width
+\begin{itemize}
+\item Surgiu um novo problema urgente
+\item Então foi criado um {\tt branch} para a correção ({\tt hotfix}): {\tt git checkout -b 'hotfix'}
+
+
+\end{itemize}
+
+\column{.5\textwidth} % Right column and width
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0313-tn.png}
+\end{figure}
+
+\end{columns}
+	
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Branch e Merge}
+
+\begin{columns}[c]
+
+\column{.5\textwidth} % Left column and width
+\begin{itemize}
+\item As correções foram consolidadas, então se faz o {\tt merge} com o {\tt master}
+\item {\tt git checkout master}
+\item {\tt git merge hotfix}
+\item {\tt merge} ``Fast forward":
+\item {\tt hotfix} não é mais necessário: {\tt git branch -d hotfix}
+
+\end{itemize}
+
+\column{.5\textwidth} % Right column and width
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/git-18333fig0313-tn.png}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/git18333fig0314-tn.png}
+\end{figure}
+
+\end{columns}
+	
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Branch e Merge}
+
+\begin{columns}[c]
+
+\column{.5\textwidth} % Left column and width
+\begin{itemize}
+\item Volta-se a trabalhar na tarefa \#53
+\item {\tt git checkout iss53}
+\item Novas alterações: {\tt git commit -a -m 'novo rodapé terminado [issue 53]'}
+
+
+\end{itemize}
+
+\column{.5\textwidth} % Right column and width
+
+\begin{figure}
+\includegraphics[scale=0.45]{./images/git-18333fig0315-tn.png}
+\end{figure}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Branch e Merge}
+
+\begin{itemize}
+\item Chegou a hora do {\tt merge}: ancestral direto do {\tt branch} que você está fazendo o merge não é o mesmo
+\item {\tt merge} simples de três vias
+\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.4]{./images/git-18333fig0316-tn.png}
+\end{figure}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Branch e Merge}
+
+\begin{itemize}
+\item Git cria um novo snapshot que resulta do merge de três vias e automaticamente cria um novo commit que aponta para ele
+\item Esse commit e é especial pois tem mais de um pai.
+\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/git-18333fig0317-tn.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Rebasing}
+
+\begin{itemize}
+	\item Há duas forma de se integrar mudanças de branch para outro: {\tt merge} e {\tt rebase}
+	\item Rebasing consiste em replicar todas as mudanças que foram realizadas num branch em outro branch
+	\item Mantém o histórico mais limpo e linear (sem caminhos paralelos como no merge)
+	\item O histórico aparecerá como se todo o trabalho tivesse sido em série quando na verdade foi realizado em paralelo
+	\item Mantém a aparência do branch remoto/servidor mais limpa
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Rebasing}
+
+	\begin{itemize}
+	\item 
+\begin{verbatim}
+git checkout experiment
+git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: added staged command
+...
+git checkout master
+git merge experiment
+\end{verbatim}
+
+	\end{itemize}
+
+\begin{columns}[c] 
+\column{.5\textwidth} % Left column and width
+
+\begin{figure}
+\includegraphics[scale=0.45]{./images/git-18333fig0327-tn.png}
+\end{figure}
+
+\column{.5\textwidth} % Left column and width
+\begin{figure}
+\includegraphics[scale=0.45]{./images/git-18333fig0329-tn.png}
+\end{figure}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Git}}
+\centerline{Git no Servidor}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Repositório Remotos: Comandos}
+
+\begin{itemize}
+\item Compartilhando e Atualizando projetos
+		\begin{itemize}
+			\item \textbf{clone}
+			\item \textbf{remote}
+			\item \textbf{fetch}
+			\item \textbf{pull}
+			\item \textbf{push}
+		\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{GitHub}
+
+\begin{itemize}
+	\item Crie uma conta em \url{https://github.com/}
+	\item Navegue para o repositório \url{https://github.com/octocat/Spoon-Knife}
+	\item No canto superior direito, clique em {\bf Fork} (Copia o repositório e permite alterá-lo livremente sem afetar o projeto original)
+	\item Adicione um Novo Colaborador para o projeto Spoon-Knife: pesquise pelo usuário {\tt aluno-fa7-pos01}
+	\item Usaremos o {\tt aluno-fa7-pos01} para simular usuário diferente
+	\item A senha {\tt aluno-fa7-pos01} é {\tt posgradfa7}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{{\tt git clone}}
+
+\begin{itemize}
+\item Para copiar um repositório Git já existente use: {\tt git clone}
+\item Recebe uma cópia de quase todos os dados que o servidor possui
+\item Exemplo: \\ {\tt git clone git://github.com/schacon/grit.git mygrit}
+\item Exercício: clone duas vezes o repositório SpoonKnife como abaixo
+\\ {\tt git clone https://github.com/arglbrce/Spoon-Knife.git Spoon-Knife}
+\\  {\tt git clone https://github.com/arglbrce/Spoon-Knife.git Spoon-Knife-aluno-fa7-pos01}
+%\item Clonando um repositório limpo: {\tt git clone --bare my\_project my\_project.git}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{ {\tt git clone}}
+
+\begin{figure}
+\includegraphics[scale=0.45]{./images/git-18333fig0322-tn.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{{\tt git remote}}
+
+\begin{itemize}
+\item {\tt git remote}: lista o nome dos repositórios remotos
+\item {\tt git remote -v}: lista o nome dos repositórios remotos e a URL
+\item {\tt git remote add [shortname] [url]}: adiciona um repositório remoto ao repositório local
+\item Exemplo: \\ {\tt git remote add pb https://github.com/paulboone/ticgit}
+\item Exercício: adicionar o repositório do seu vizinho \\ {\tt git remote add vizinho https://github.com/vizinho/Spoon-Knife}
+\item {\tt git remote rename pb paul}: renomeia um repositório remoto
+\item {\tt git remote rm paul}: remove um repositório remoto
+\item {\tt git remote show origin}: exibe detalhes do repositório remoto em relação ao repositório local. Quais branches estão sendo rastreadas
+
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{{\tt git remote}}
+
+\begin{figure}
+\includegraphics[scale=0.53]{./images/git-18333fig0325-tn.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{{\tt git fetch}}
+
+\begin{itemize}
+\item {\tt git fetch [remote-name]}: 
+	\begin{itemize}
+		\item Recupera todos os dados remotos que não se tem ainda
+		\item Referencia todos os branches remotos
+	\end{itemize}
+\item {\tt git fetch origin}: 
+	\begin{itemize}
+		\item Verifica qual servidor {\tt origin} aponta
+		\item Obtém todos os dados que o repositório local ainda não tem, desde que foi feito {\tt git clone} ou {\tt git fetch}
+		\item Atualiza o banco de dados local
+		\item Move o  {\tt origin/master} para a posição mais recente e atualizada
+		\item Não faz {\tt merge} automático
+		\item As modificações locais ficam inalteradas até que se faça o {\tt merge} manual
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}[fragile]
+%	\frametitle{Branches Remotos}
+%
+%\begin{itemize}
+%\item São referências ao estado de branches no repositório remoto
+%\item São branches locais que você não pode mover
+%\item Elas se movem automaticamente sempre que se faz alguma comunicação via rede
+%\item Branches remotos agem como marcadores
+%\item Seguem um padrão: {\tt (remoto)/(branch)}
+%\item {\tt origin/master}: verifica o branch {\tt master} no servidor remoto {\tt origin}
+%\end{itemize}
+%
+%\end{frame}
+
+
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{{\tt git fetch}}
+
+\begin{figure}
+\includegraphics[scale=0.55]{./images/git-18333fig0323-tn.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{{\tt git fetch}}
+
+\begin{figure}
+\includegraphics[scale=0.4]{./images/git-18333fig0324-tn.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{{\tt git fetch}}
+
+	\begin{itemize}
+	\item Sincronizando com o outro servidor remoto: 
+	\item {\tt git fetch teamone}
+	\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.45]{./images/git-18333fig0326-tn.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{{\tt git pull}}
+
+\begin{itemize}
+\item {\tt git pull}: Recupera  ({\tt fetch}) os dados do servidor que seu repositório foi clonado e tenta automaticamente realizar a fusão ({\tt merge}) com trabalho local
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{{\tt git push}}
+
+	\begin{itemize}
+	\item Enviando (Pushing): quando se quer compartilhar um branch enviando-o para um servidor remoto
+	\item {\tt git push [remote-name] [branch-name]}
+	\item {\tt git push origin master}
+	\item Possui restrições:
+	\begin{itemize}
+		\item É preciso ter acesso de escrita no repositório remoto
+		\item Ninguém realizou um {\tt git push} antes da sua tentativa
+	\end{itemize}
+	\item Exercício:
+		\begin{itemize}
+		\item Crie um branch local chamado {\tt teste-branch-remoto}
+		\item Realize dois commits
+		\item Entregue para o servidor: {\tt git push origin teste-branch-remoto}
+		\item Visualize os resultados em modo gráfico
+		\item No outro repositório local execute: {\tt git remote show origin}
+	\end{itemize}
+	\item {\tt git push origin --delete serverfix}: deleta um branch remoto
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fluxo de Trabalho Distribuído}
+
+	\begin{itemize}
+	\item Fluxo de Trabalho Centralizado
+	\item Fluxo de Trabalho com Gerente de Integração
+	\item Fluxo de Trabalho Ditador-Tenentes
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fluxo de Trabalho Centralizado}
+
+	\begin{itemize}
+		\item Estilo Subversion
+	\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.3]{./images/centralized.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fluxo de Trabalho com Gerente de Integração}
+
+	\begin{itemize}
+		\item Estilo GitHub
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.25]{./images/integration-manager.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fluxo de Trabalho Ditador-Tenentes}
+
+	\begin{itemize}
+		\item Estilo Kernel Linux
+	\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.25]{./images/benevolent-dictator.png}
+\end{figure}
+
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fluxo de Trabalho ao Estilo Subversion}
+
+\begin{figure}
+\includegraphics[scale=0.15]{./images/small-team-3.png}
+\caption{Histórico do Usuário A}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.15]{./images/small-team-4.png}
+\caption{Histórico do Usuário B}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fluxo de Trabalho ao Estilo Subversion}
+
+\begin{figure}
+\includegraphics[scale=0.13]{./images/small-team-7.png}
+\caption{Histórico do Usuário B após a fusão}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+	\frametitle{Fluxo de Trabalho ao Estilo Subversion}
+
+\begin{figure}
+\includegraphics[scale=0.13]{./images/small-team-flow.png}
+\caption{Sequencia geral de eventos}
+\end{figure}
+
+\end{frame}
+
+
+%\begin{frame}[fragile]
+%	\frametitle{Rebasing}
+%
+%	\begin{itemize}
+%	\item Replica todas as mudanças que foram realizadas num branch em outro branch.
+%	\item 
+%\begin{verbatim}
+%git checkout experiment
+%git rebase master
+%First, rewinding head to replay your work on top of it...
+%Applying: added staged command
+%\end{verbatim}
+%	\item Use {\tt Rebase} quando fizer o {\tt Pull} de algum {\tt remote}: {\tt git pull --rebase origin master}
+%
+%	\end{itemize}
+%
+%\begin{columns}[c] 
+%\column{.5\textwidth} % Left column and width
+%
+%\begin{figure}
+%\includegraphics[scale=0.43]{./images/git-18333fig0327-tn.png}
+%\end{figure}
+%
+%\column{.5\textwidth} % Left column and width
+%\begin{figure}
+%\includegraphics[scale=0.43]{./images/git-18333fig0329-tn.png}
+%\end{figure}
+%
+%\end{columns}
+%
+%\end{frame}
+
+
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Referências}
+	\begin{itemize}
+		\item Pro Git - \url{http://git-scm.com/book}
+		\item Pragmatic Version Control Using Git (Pragmatic Starter Kit)
+		\item Version Control with Git: Powerful tools and techniques for collaborative software development 
+		%\url{http://www.acquia.com/blog/pragmatic-guide-branch-feature-git-branching-strategy}
+		%\url{http://nvie.com/posts/a-successful-git-branching-model/}
+		%\url{http://dymitruk.com/blog/2012/02/05/branch-per-feature/}
+	\end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document}

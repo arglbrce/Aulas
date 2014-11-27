@@ -1,0 +1,663 @@
+\documentclass{beamer}
+
+\usepackage{GCS-Aula_00-Style}
+
+\input{GCS-Aula_00-Title.tex}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Introdução}}
+%\centerline{Parte 1}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Apresentação}
+\begin{itemize}
+	\item Allan Lima
+	\begin{itemize}
+		\item Analista de Sistemas, SERPRO
+	\end{itemize}
+	\item Experiência acadêmica
+	\begin{itemize}
+		\item Mestre em Ciênia da Computação, UFC
+		\item Ex-Professor da graduação
+		\item Professor da especialização da FA7
+	\end{itemize}
+	\item Experiência prática
+	\begin{itemize}
+		\item Gerente de configuração e integrador
+		\item Atualmente Líder de Projeto
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Apresentação}
+
+\begin{itemize}
+\item \textbf{Aulas:} 
+  \begin{itemize}
+    \item 6 noites: 17/nov, 19/nov, 24/nov, 26/nov, 1/dez e 3/dez
+    \item 24 aulas
+  \end{itemize}
+\item \textbf{Faltas:}
+  \begin{itemize}
+    \item 25 porcento = 1,5 noites
+    \item Não há abono
+    \item Reprova
+  \end{itemize}
+\item \textbf{Avaliação:}
+  \begin{itemize}
+    \item Será encaminhada por email
+    \item Pode ser feito em dupla
+    \item Data Limite de entrega: 10 de dezembro de 2014
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Introdução}
+
+\begin{itemize}
+	\item Gestão de Configuração de Software
+	\begin{itemize}
+		\item Teve início no final dos anos 60
+		\item Resultado do aumento da complexidade do software: melhor hardware, maiores equipes
+		\item Primeiros padrões desenvolvidos pelo DoD, e depois IEEE
+	\end{itemize}
+	\item Evolução dos Processos de Desenvolvimento de Software 
+	\item Criação de Modelos de Referência
+	\begin{itemize}
+		\item Ex: ISO 12207
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Problemas Comuns}
+
+\begin{itemize}
+	\item \emph{Não te avisaram? Esta seção foi alterada.}
+	\item \emph{Lembra aquele erro? Reapareceu!}
+	\item \emph{No documento da minha máquina tem essa figura na seção 3!}
+	\item \emph{Quem mandou refazer isso?}
+	\item \emph{Quem apagou a tabela que fiz ontem?}
+	\item \emph{Pensando bem, do jeito que estava ontem era melhor...}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Mudanças}
+
+\begin{itemize}
+	\item \emph{Não há nada permanente, exceto a mudança}  (Heráclito, 500 a.C.)
+	\item A maioria das modificações no software é justificável. 
+	\item Em vez de evitá-las, devemos ter de mecanismos para cuidar delas.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Mudanças}
+
+\begin{itemize}
+	\item Origens Comuns das Modificações:
+	\begin{itemize}
+		\item Novas condições de negócio ou mercado
+		\item Novas necessidades do cliente
+		\item Reorganização ou crescimento/diminuição dos negócios
+		\item Restrições de orçamento ou cronograma
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivação}
+
+\begin{itemize}
+	\item Desenvolvimento Paralelo
+	\begin{itemize}
+		\item Projeto de Reestruturação de um Software em Produção:
+			\begin{itemize}
+				\item Implementação de novas funcionalidades X correção de bugs.
+			\end{itemize}
+	\end{itemize}
+	\item Projeto para Correção de Falhas
+	\begin{itemize}
+		\item Impacto sobre vários elementos do sistema.
+		\item Nem todas as partes envolvidas são avisadas.
+		\item Após a implantação outras funcionalidades apareceram com novos bugs.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivação}
+
+\begin{itemize}
+	\item Desenvolvimento Paralelo
+	\begin{itemize}
+		\item \emph{Qual versão é mais correta ou completa?} 
+		\item \emph{Ok! Agora como unir as duas versões de um sistema inteiro?} 
+	\end{itemize}
+\end{itemize}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/svn-conflito.jpg}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Motivação}
+
+\begin{itemize}
+	\item Falta de sincronismo entre atividades
+	\begin{itemize}
+		\item Mudanças interdependentes não implantadas sincronizadas
+	\end{itemize}
+	\item Notificação Limitada
+	\begin{itemize}
+		\item Ao se resolver algum problema num dado artefato compartilhado, a mudança deve ser notificada
+	\end{itemize}
+	\item Conflito entre atividades paralelas
+	\begin{itemize}
+		\item Uma das duas é suspensa, até que a outra seja concluída
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Motivação}
+
+\begin{itemize}
+	\item Falta de Controle de Modificações
+	\begin{itemize}
+		\item Em que versão foi realizada a correção?
+		\item Qual é a versão mais atual?
+		\item Quem foi o responsável pela mudança?
+		\item O que realmente foi modificado?
+		\item Quando?
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Motivação}
+
+\begin{itemize}
+	\item Perda do fonte de um programa
+	\item Impossibilidade de recuperar uma determinada versão do sistema
+	\begin{itemize}
+		\item Indisponibilidade da versão anterior
+		\item Falta de informação sobre a sua composição
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Motivação}
+
+\begin{itemize}
+	\item Falta de controle nas mudanças/atividades
+	\begin{itemize}
+		\item Não é possível determinar a situação delas (atrasadas, concluídas, não alocadas, em andamento)
+		\item Histórico das mudanças
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Motivação}
+
+\begin{itemize}
+	\item Caos: Alterações sem controle de produtos de desenvolvimento de software é um processo caótico.
+	\begin{itemize}
+		\item Muitos Artefatos
+		\item Várias Equipes
+		\item Diferentes Locais
+		\item Múltiplas Iterações
+		\item Releases
+		\item Diferentes Produtos
+		\item Múltiplas Plataformas
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{O que é GCS?}
+
+\begin{itemize}
+\item Diversos Termos
+	\begin{itemize}
+		\item Gerência de Configuração de Software (GCS)
+		\item Gestão de Configuração Software (GCS)
+		\item Gestão de Configuração (GC)
+		\item Software Configuration Management (SCM)
+		\item Configuration Management (CM)
+		\item Change Management (CM)
+		\item Configuration \& Change Management (CCM)
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{O que é GCS?}
+
+\begin{itemize}
+	\item Change Management (CM) - Gestão de Mudanças
+	\begin{itemize}
+		\item ``\emph{A arte de coordenar desenvolvimento de software para minimizar... \underline{confusão} é chamada de gestão de configuração, que é a arte de \underline{identificar}, \underline{organizar} e \underline{controlar modificações} no software que está sendo construído por uma equipe de desenvolvimento. O objetivo é maximizar a produtividade pela minimização de erros.}" (Pressman, 2006)
+	\end{itemize}
+\end{itemize}
+	
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{O que é GCS?}
+
+\begin{itemize}
+	\item Change Management (CM) - Gestão de Mudanças
+	\begin{itemize}
+		\item ``\emph{Uma disciplina que aplica orientações técnicas e administrativas, e supervisão para (1) identificar e documentar as características funcionais e físicas de um item de configuração, (2) controlar mudanças nestas características, (3) manter e divulgar o status do processamento e da implementação de mudanças e, (4) verificar a aderência com os requisitos especificados.}" (SEI CMMI)
+	\end{itemize}
+\end{itemize}
+	
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{O que é GCS?}
+
+\begin{itemize}
+	\item Change Management (CM) - Gestão de Mudanças
+	\begin{itemize}
+		\item ``\emph{A tarefa de definir e manter as configurações e versões de artefatos. Isto inclui manter linhas de base (baselining), controle de versões, controle de status e controle do armazenamento de artefatos.}" (Ivar Jacobson, Grady Booch, and James Rumbaugh)
+	\end{itemize}
+\end{itemize}
+	
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{O que é GCS?}
+
+	\tikzstyle{na} = [baseline=-.5ex]
+
+	\begin{itemize}
+		\item Change Management (CM) - Gestão de Mudanças
+		\begin{itemize}
+			\item ``\emph{\textbf{Gestão de Configuração:} É o processo de identificar e definir os itens em um sistema, controlando as modificações nestes itens durante o seu ciclo de vida, gravando e relatando o status dos itens e das solicitações de mudanças, verificando a completude, consistência e corretude nos mesmos.}" (IEEE-Std-729-1983) \tikz[na] \node[coordinate] (n1) {};
+		\end{itemize}
+	\end{itemize}
+
+\begin{figure}
+\centering
+
+
+\begin{tikzpicture}[node distance = 2cm, auto]
+	\tikz[baseline]{
+		\node[fill=blue!20,anchor=base] (t1)
+		{Mais Completa};
+        }
+\end{tikzpicture}
+\end{figure}
+
+% Now it's time to draw some edges between the global nodes. Note that we
+% have to apply the 'overlay' style.
+\begin{tikzpicture}[overlay]
+        \path[->]<1-> (n1) edge [bend left] (t1);
+\end{tikzpicture}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{O que é GCS?}
+
+	\begin{itemize}
+		\item GCS deve responder quem, o que, quando e por que:
+		\begin{itemize}
+			\item \textbf{Quem} fez as mudanças e podemos reproduzi-la?
+			\begin{itemize}
+				\item Auditoria responde
+			\end{itemize}
+		\end{itemize}
+		\begin{itemize}
+			\item \textbf{Que} mudanças e \textbf{quando} foram feitas no sistema?
+			\begin{itemize}
+				\item Controle de Versão responde
+			\end{itemize}
+		\end{itemize}		
+		\begin{itemize}
+			\item \textbf{Onde} as mudanças foram feitas?
+			\begin{itemize}
+				\item Controle de Versão responde
+			\end{itemize}
+		\end{itemize}
+		\begin{itemize}
+			\item \textbf{Por que} as mudanças foram feitas?
+			\begin{itemize}
+				\item Controle de Mudanças responde
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{O que é GCS?}
+
+	\begin{itemize}
+		\item Sintomas da Falta de GCS:
+		\begin{itemize}
+			\item Não é possível determinar por que, quem e quando uma determinada alteração foi feita
+			\item Não se sabe onde está a versão mais atual de um documento
+			\item Falta de compatibilidade ou sincronismo entre diversos componentes de um projeto
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{O que é GCS?}
+
+	\begin{itemize}
+		\item Consequencias da falta de GCS:
+		\begin{itemize}
+			\item Overhead e falhas de comunicação
+			\item Erros que reaparecem
+			\item Versões erradas de documentos sendo usadas
+			\item Retrabalho desnecessário ou excessivo
+			\item Produto final produzido da forma errada
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{O que é GCS?}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/introducao-01.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{O que é GCS?}
+
+	\begin{itemize}
+		\item Funções:
+		\begin{itemize}
+			\item \textbf{Identificação:} No início do desenvolvimento, a GCS permite à equipe de desenvolvimento identificar as unidades que compõem o sistema de acordo com as funcionalidades que elas deverão desempenhar.
+			\item \textbf{Integração/Documentação:} As interfaces entre estas unidades, documentando assim a interação entre elas.
+			\item \textbf{Controle:} O controle contínuo da evolução destas funcionalidades e interfaces permite que a integração entre estas unidades tenha sucesso continuado, com as mudanças devidamente gerenciadas e documentadas.
+			\item \textbf{Auditoria:} A auditoria das funcionalidades identificadas, documentadas e controladas garante a confiabilidade do sistema.
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Objetivo da GCS}
+
+	\begin{itemize}
+		\item Estabelecer e manter a integridade e o controle dos produtos de software.
+		\begin{itemize}
+			\item As atividades de GCS estão intimamente ligados à Garantia da Qualidade de Software (GQS).
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Abrangência de GCS}
+
+	\begin{itemize}
+		\item Gestão de configuração de software é um conjunto de atividades de planejamento, acompanhamento, controle e atividades técnicas que:
+		\begin{itemize}
+			\item Começa quando o projeto de engenharia de software tem início.
+			\item Continua durante todas as versões posteriores do software.
+			\item Só termina quando o software sai de produção.
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Abrangência de GCS}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/introducao-02.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Benefícios}
+
+	\begin{itemize}
+		\item Proporcionar estabilidade e confiabilidade
+		\item Maior visibilidade do sistema (produtos)
+		\item Maior rapidez na identificação e correção de problemas
+		\item Apoiar a tomada de decisões
+		\item Introduzir padrões
+		\begin{itemize}
+			\item Documentação, nomenclatura, armazenamento, procedimentos...
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Benefícios}
+
+	\begin{itemize}
+		\item Permite o controle de versões e releases do software
+		\item Viabiliza a integração entre os membros da equipe
+		\item Incrementa a qualidade nas diversas fases de desenvolvimento de software
+		\item Garante a rastreabilidade entre o produto de software e suas partes constituintes (em suas várias versões)
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Benefícios}
+
+	\begin{itemize}
+		\item Consistência
+		\item Coordenação
+		\item Reproducibilidade*
+		\item Integridade
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Quem trabalha com GCS?}
+
+	\begin{itemize}
+		\item Gestor de Configuração de Software (GCS) 
+		\item Programadores
+		\item Analistas de Requisitos
+		\item Analistas de Testes
+		\item Analista de Suporte
+		\item Analista de Negócios
+		\item Gerentes de Projetos
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Onde GCS é Inserida Atualmente?}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/introducao-03.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Principais Atividades}
+
+	\begin{itemize}
+		\item Planejar a Gestão de Configuração
+		\item Identificar a Configuração
+		\item Controlar as Mudanças
+		\item Administrar Baselines
+		\item Relatar a Situação da Configuração
+		\item Realizar Auditorias de Configuração
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Como GCS é implantada?}
+
+	\begin{itemize}
+		\item Adoção de práticas e ferramentas.
+		\item Adoção de um Processo de Desenvolvimento de Software que contemple atividades de GCS.
+		\item Capacitação da Equipe.
+	\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{O que mais veremos?}
+
+	\begin{itemize}
+		\item Conceitos de GCS
+		\item Conceitos de Controle de Versão
+		\begin{itemize}
+			\item Ferramentas: Subversion e Git
+		\end{itemize}
+		\item Conceitos de Controle de Mudanças
+		\begin{itemize}
+			\item Ferramentas: Mantis
+		\end{itemize}
+		\item Integração Contínua
+		\begin{itemize}
+			\item Maven
+			\item Jenkins
+		\end{itemize}
+%		\item Entrega Contínua
+	\end{itemize}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Link}
+	\begin{itemize}
+		\item Software Configuration Management (SCM), Carnegei Mellon.  \url{http://www.sei.cmu.edu/legacy/scm}
+		\item Configuration Management Yellow Pages.  \url{http://www.cmcrossroads.com/yp/index.php?oldpage=configuration_management.htm}
+		\item Unified Configuration Management Central
+		\url{http://www.snuffybear.com/ucmcentral_new_cmportal.htm}
+		\item Brad Appleton's SCM Links
+		\url{http://www.cmcrossroads.com/bradapp/links/scm-links.htm}
+	\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Referências}
+	\begin{itemize}
+		\item PRESSMAN, R. S., \textbf{Engenharia de Software}, 6ª. ed., 2006.
+		\item HASS A. M. J., \textbf{Configuration Management Principles and Practice}, Addison Wesley, 432p, 2002.
+		\item FREDERICKS T., \textbf{Software Configuration and Integration Management}, Marquette University, 2001.
+		\item \textbf{PSDS: Processo SERPRO de Desenvolvimento de Soluções}, SERPRO, 2011.
+	\end{itemize}
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document}
