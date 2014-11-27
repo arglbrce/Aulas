@@ -1,0 +1,49 @@
+\ProvidesPackage{GCS-Aula_00-Style}
+
+\mode<presentation> {
+	\usetheme{Madrid}
+}
+
+\usepackage[normalem]{ulem}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[latin1]{inputenc}
+\usepackage{dirtree}
+\usepackage{minted}
+%\usepackage{scrhack}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{positioning,shapes,arrows,shadows}
+
+\usepackage{biblatex}
+\bibliography{referencias.bib}
+
+% For every picture that defines or uses external nodes, you'll have to
+% apply the 'remember picture' style. To avoid some typing, we'll apply
+% the style to all pictures.
+\tikzstyle{every picture}+=[remember picture]
+
+\usepackage{listings}
+
+\usepackage{color}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+basicstyle=\ttfamily,
+columns=fullflexible,
+showstringspaces=false,
+commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+ identifierstyle=\color{darkblue},
+ keywordstyle=\color{cyan},
+ morekeywords={xmlns,version,type}% list your attributes here
+ }
