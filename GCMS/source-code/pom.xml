@@ -1,0 +1,16 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.com.curso</groupId>
+    <artifactId>dv-generator</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>DV Generador</name>
+    <description>Gerador de digito verificador</description>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
