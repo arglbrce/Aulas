@@ -1,0 +1,7 @@
+<dependency>
+   <groupId>com.mycorp</groupId>
+   <artifactId>my-lib</artifactId>
+   <version>1.0.0</version>
+   <scope>system</scope>
+   <systemPath>${basedir}/src/main/lib/my-lib-1.0.0.jar</systemPath>
+</dependency>

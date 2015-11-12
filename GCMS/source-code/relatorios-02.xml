@@ -1,0 +1,16 @@
+<project>
+    ...
+    <!-- Relatorios -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>???</groupId>
+                <artifactId>???</artifactId>
+                <version>???</version>
+                <configuration>
+                    ...
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>

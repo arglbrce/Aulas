@@ -1,0 +1,1811 @@
+\documentclass[table]{beamer}
+
+\usepackage{GCS-Aula_00-Style}
+
+\input{GCS-Aula_00-Title.tex}
+
+% manni tango friendly pastie
+\usemintedstyle{borland}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Introdução ao Maven}}
+\centerline{Parte 1}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{O que é Maven?}
+
+\begin{itemize}
+	\item Uma tentativa de definir Maven:
+	\begin{itemize}
+		\item Ferramenta para simplificar o processo de build.
+	\end{itemize}
+	\item \texttt{Build?}
+	\begin{itemize}
+		\item Tarefas rotineiras que levam a construção ou montagem de um software a partir do código fonte.
+	\end{itemize}
+	\item Tarefas rotineiras?
+	\begin{itemize}
+		\item Compilar, executar testes, empacotar aplicação, etc.
+	\end{itemize}
+	\item Outra tentativa de definir Maven:
+	\begin{itemize}
+		\item Um conjunto de padrões usados para gerenciar e descrever projetos em java.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Quais os benefícios do Maven?}
+
+\begin{itemize}
+	\item Modelo que pode ser aplicado aos projetos Java. 
+	\item A idéia é que o modelo traga mais transparência, mais reuso, mais facilidade de manutenção e entendimento.
+	\item Fornece uma abstração que a maioria dos desenvolvedores estão familiarizados:
+	\begin{itemize}
+		\item Semelhante a abstração do automóvel: se você aprendeu a dirigir em um modelo A de carro, então poderá facilmente dirigir um modelo B.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Quais os benefícios do Maven?}
+
+\begin{itemize}
+	\item Abordagem declarativa:
+	\begin{itemize}
+		\item POM --- Project Object Model.
+		\item A tarefas são delegadas para o POM e para os plugins.
+		\item Os desenvolvedores podem usar as tarefas (encapsuladas pelos plugins) sem necessariamente entender como elas funcionam internamente
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípios do Maven}
+
+\begin{itemize}
+	\item CoC - Convenções sobre a configuração
+	\item Reuso de lógicas de \textit{builds}
+	\item Execução declarativa
+	\item Organização coerente de dependências
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípio 1: CoC - Convenção sobre a configuração}
+
+\begin{itemize}
+	\item Estratégia de ``propriedades \textit{defaults}" para a maioria das tarefas (podem ser alteradas quando conveniente) economiza tempo.
+	\item Convenções primárias:
+	\begin{itemize}
+		\item Estrutura de diretórios padrão para projetos
+		\begin{itemize}
+			\item Código fonte, recursos (xml, properties), saída de arquivos gerados, documentação etc
+		\end{itemize}
+		\item Cada projeto gera um único resultado: \texttt{jar, war, ear}...
+		\item Padrões de nomes
+		\begin{itemize}
+			\item Para diretórios: \texttt{my-app/src/main/java}
+			\item Para arquivos gerados (\textit{outputs}):  \texttt{commons-logging-1.2.jar}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípio 2: Reuso de lógicas de \textit{builds}}
+
+\begin{itemize}
+	\item Toda a lógica de \textit{build} é encapsulada pelos \textit{plugins}
+	\item Um \textit{plugin} para
+	\begin{itemize}
+		\item Para compilar o código fonte
+		\item Para executar os testes de unidade
+		\item Para empacotar a aplicação (\texttt{jar, war, ear})
+		\item Para gerar \texttt{javadocs}
+		\item etc
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípio 3: Execução declarativa}
+
+%\definecolor{LightGray}{rgb}{0.95,0.95,0.95}
+
+\begin{itemize}
+	\item Tudo no \textit{maven} é orientado de forma declarativa no \texttt{POM} e nas configurações específicas dos \textit{plugins}. Exemplo do \texttt{POM}:
+\end{itemize}
+
+\begin{block}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/pom.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípio 3: Execução declarativa}
+
+\begin{itemize}
+\item Ciclo de Vida de {\it build}:
+	\begin{itemize}
+
+	\item Consiste de uma série de fases onde cada uma pode executar uma ou mais ações (goals) relacionada a essa fase
+	\item Uma fase pode incluir outras fases:
+
+	\end{itemize}
+
+\end{itemize}
+
+\begin{block}{A fase \texttt{compile} executará:}
+	\begin{itemize}
+		\item \texttt{validate}
+		\item \texttt{initialize}
+		\item \texttt{generate-sources}
+		\item \texttt{process-sources}
+		\item \texttt{generate-resources}
+		\item \texttt{compile}
+	\end{itemize}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípio 4: Organização de dependências}
+
+\begin{itemize}
+\item Conceitos conectados:
+	\begin{itemize}
+	\item Dependências
+	\item Artefatos
+	\item Repositórios
+	\end{itemize}
+\end{itemize}
+
+\begin{block}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/pom.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Princípio 4: Organização de dependências}
+
+\begin{itemize}
+\item Uma dependência é uma \textbf{referência} a um artefato específico em um repositório
+\item Para o \texttt{maven} disponibilizar a dependência ele precisa saber em qual repositório procurar usando as \textbf{coordenadas} da dependência: \texttt{groupId}, \texttt{artifactId} e \texttt{version}
+\item \texttt{Maven} busca a dependência de um \textbf{repositório remoto} e copia para um \textbf{repositório local}
+\item Sempre que uma dependência não se encontrar em um repositório local, \texttt{maven} tenta buscar a dependência em repositórios remotos
+
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Repositórios Locais}
+
+\begin{figure}
+\includegraphics[scale=0.6]{./images/maven_repo_local.png}
+\caption{Fonte: \url{http://blog.billcode.com.br/2011/09/repositorios-maven-em-5-minutos.html}}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Repositórios Internos}
+
+\begin{figure}
+\includegraphics[scale=0.6]{./images/maven_repo_interno.png}
+\caption{Fonte: \url{http://blog.billcode.com.br/2011/09/repositorios-maven-em-5-minutos.html}}
+\end{figure}
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Repositórios Remotos}
+
+\begin{figure}
+\includegraphics[scale=0.6]{./images/maven_repo_externo.png}
+\caption{Fonte: \url{http://blog.billcode.com.br/2011/09/repositorios-maven-em-5-minutos.html}}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Iniciando um projeto com \texttt{Maven}}
+
+\begin{block}{O que nos aguarda:}
+
+\begin{itemize}
+\item Preparando-se para usar o \texttt{Maven}
+\item Criando o seu primeiro projeto
+\item Compilando os arquivos fontes da aplicação
+\item Compilando os arquivos fontes de teste e executando os testes de unidade
+\item Empacotando e publicando a aplicação no seu repositório local
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Preparando-se para usar o \texttt{Maven}}
+
+\begin{block}{Configurar o ambiente de desenvolvimento:}
+
+\begin{itemize}
+\item Instalar o \texttt{Maven}
+\item Iniciar o repositório local
+\end{itemize}
+
+\end{block}
+
+\begin{block}{Criar um projeto:}
+
+\begin{itemize}
+\item Configuração inicial
+\item Estrutura de pastas
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Preparando-se para usar o \texttt{Maven}}
+
+\begin{block}{Executar principais tarefas:}
+	\begin{itemize}
+		\item \texttt{compile}
+		\item \texttt{clean}
+		\item \texttt{test}
+		\item \texttt{test-compile}
+		\item \texttt{package}
+		\item \texttt{install}
+	\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Configurando o ambiente de desenvolvimento}
+
+\begin{block}{Instalar o JDK:}
+
+\begin{itemize}
+\item Preferência pela última versão
+\item \url{http://www.oracle.com/technetwork/java/javase/downloads/}
+\end{itemize}
+
+\end{block}
+
+\begin{block}{Instalar o \texttt{Maven}:}
+
+\begin{itemize}
+\item Fazer o download do .zip na página do Maven
+\item \url{http://maven.apache.org/download.html}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Configurando o ambiente de desenvolvimento}
+
+\begin{block}{WINDOWS - Descompactar em uma pasta:}
+
+\begin{itemize}
+\item \begin{verbatim} <HOME>\Aplicativos\apache-maven-X.Y.Z} \end{verbatim} 
+\end{itemize}
+
+\end{block}
+
+\begin{block}{WINDOWS - Configurar variáveis de ambiente}
+
+\begin{itemize}
+\item \begin{verbatim} 
+JAVA_HOME=C:\Program Files\Java\jdk1.X.Y_ZW
+PATH=%PATH%;
+     C:\Program Files\Java\jdk1.X.Y_ZW\bin; 
+     <HOME>\Aplicativos\svn-win32-1.7.2\bin;
+     <HOME>\Aplicativos\apache-maven-2.2.1\bin
+\end{verbatim} 
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Criando o seu primeiro projeto}
+
+Usaremos o mecanismo de \textbf{Archetype}: \textit{template} de projeto
+
+\begin{block}{Comando:}
+
+\begin{verbatim} 
+mvn archetype:create
+    -DgroupId=br.com.curso
+    -DartifactId=my-app
+    
+mvn archetype:generate
+\end{verbatim} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Criando o seu primeiro projeto}
+
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.5\textwidth} % Left column and width
+\begin{itemize}
+\item Um diretório chamado ``\texttt{my-app}" é gerado contendo um arquivo ``\texttt{pom.xml}" 
+
+\item O diretório ``\texttt{src}" contém todas as entradas necessárias para compilar, testar, documentar e publicar o projeto
+\end{itemize}
+
+\column{.5\textwidth} % Right column and width
+\begin{figure}
+\includegraphics[scale=0.6]{./images/maven-01.png}
+\end{figure}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{\texttt{pom.xml}}
+
+\begin{block}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/pom2.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Compilando a aplicação}
+
+\begin{block}
+
+\begin{verbatim} 
+mvn compile
+\end{verbatim} 
+
+\end{block}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/maven-02.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Compilando a aplicação}
+
+O simplório comando de compilação usa os quatro princípios que fundamentam o \texttt{Maven}:
+
+\begin{block}{Convenções sobre a configuração}
+\begin{itemize}
+\item Como o \texttt{maven} sabe onde estão os arquivos para serem compilados? \texttt{[src/main/java]}
+\item Como o \texttt{maven} sabe onde por as classes compiladas? \texttt{[target/classes]}
+\item Os valores de propriedades \textit{defaults} são herdados do Super POM \\
+\texttt{mvn help:effective-pom}
+\end{itemize}
+\end{block}
+
+\begin{block}{Reuso de lógicas de builds}
+\begin{itemize}
+\item O que realmente compilou o código?
+\item O \textit{plugin} padrão \texttt{compiler} junto com suas configurações \textit{defaults} 
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Compilando a aplicação}
+
+\begin{block}{Execução declarativa}
+\begin{itemize}
+\item Como o \texttt{maven} sabe que a fase \texttt{compile} deve chamar o \textit{plugin} \texttt{compiler} e seu comando \texttt{compiler:compile}?
+\item Através do ciclo de vida de \textit{build} padrão
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Compilando a aplicação}
+
+\begin{block}{Organização coerente de dependências}
+\begin{itemize}
+\item Como \texttt{maven} é capaz de obter o \textit{plugin} \texttt{compiler} se na instalação padrão do \textit{plugin} não é disponibilizado?
+\item \texttt{Maven} faz o download a partir de um repositório remoto do \textit{plugin}
+\end{itemize}
+\end{block}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./images/maven-03.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Configurando um repositório}
+
+\begin{block}{Repositórios:}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/repositories.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Excluindo os arquivos gerados}
+
+Para excluir os arquivo gerados na pasta \texttt{target} use o comando:
+
+\begin{block}
+
+\begin{verbatim}
+mvn clean
+\end{verbatim}
+
+\end{block}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/maven-04.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Compilando os arquivos fontes de testes de unidade e executando}
+
+Para compilar e executar os testes de unidade basta executar o comando:
+
+\begin{block}
+
+\begin{verbatim}
+mvn test
+\end{verbatim}
+
+\end{block}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/maven-05.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Compilando os arquivos fontes de testes de unidade e executando}
+
+Para compilar e \textbf{NÃO} executar os testes de unidade basta executar o comando:
+
+\begin{block}
+
+\begin{verbatim}
+mvn test-compile
+\end{verbatim}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Empacotando e publicando a aplicação no seu repositório local}
+
+Para empacotar a aplicação basta executar o comando: 
+
+\begin{block}
+
+\begin{verbatim}
+mvn package
+\end{verbatim}
+
+\end{block}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/maven-06.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Empacotando e publicando a aplicação no seu repositório local}
+
+\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+
+\column{.5\textwidth} % Left column and width
+O diretório target conterá o arquivo JAR gerado
+
+\column{.5\textwidth} % Right column and width
+\begin{figure}
+\includegraphics[scale=0.7]{./images/maven-07.png}
+\end{figure}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Empacotando e publicando a aplicação no seu repositório local}
+
+Para instalar a aplicação no repositório local basta executar o comando: 
+
+\begin{block}
+
+\begin{verbatim}
+mvn install
+\end{verbatim}
+
+\end{block}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/maven-08.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Empacotando e publicando a aplicação no seu repositório local}
+
+Repositório Local após o \texttt{install}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/maven-09.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Manipulando recursos de \textit{classpath}}
+
+\begin{block}
+
+\begin{itemize}
+\item Às vezes é necessário empacotar arquivos de recursos dentro de um arquivo JAR
+\item \texttt{Maven} fornece um diretório padrão para os recursos: \\ \texttt{[src/main/resources]}
+\item Os arquivos colocados nesse diretório serão empacotados dentro do JAR com a mesma estrutura
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Manipulando recursos de \textit{classpath}}
+
+\begin{block}{Exercício}
+
+\begin{itemize}
+\item Crie o diretório: \texttt{[src/main/resources/META-INF]}
+\item Dentro de \texttt{[src/main/resources]}, crie o arquivo vazio \texttt{application.properties}
+\item Dentro de \texttt{[src/main/resources/META-INF]}, crie o arquivo vazio \texttt{application.xml}
+\item Execute \texttt{mvn package}
+\item Execute \texttt{jar tvf target/my-app-1.0-SNAPSHOT.jar}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Manipulando recursos de \textit{classpath}}
+
+Veja que os arquivo dentro da pasta \texttt{resources}, foram empacotados no JAR
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/maven-10.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Manipulando recursos de \textit{classpath} para testes de unidade}
+
+\begin{block}{Exercício}
+
+\begin{itemize}
+\item Para adicionar recursos ao \textit{classpath} dos testes de unidade, siga o mesmo padrão para um JAR
+\item \texttt{Maven} fornece um diretório padrão para os recursos: \\
+\texttt{[src/\textcolor{red}{test}/resources]}
+\item Os arquivos colocados nesse diretório estarão disponíveis durante a execução dos testes de unidade
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Manipulando recursos de \textit{classpath} para testes de unidade}
+
+\begin{block}
+
+Suponha que exista o artefato: \\
+\texttt{my-app/src/test/resources/test.properties}
+
+Uma classe de testes poderia usá-lo da seguinte forma:
+
+\end{block}
+
+\begin{figure}
+\includegraphics[scale=0.75]{./images/maven-11.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Filtrando Recursos de  \textit{classpath}}
+
+\begin{block}
+
+\begin{itemize}
+\item Às vezes, um arquivo de recurso precisará conter um valor que somente poderá ser fornecido durante a construção do software (execução do \texttt{maven})
+\item Para \textbf{filtrar} arquivos de recursos dinamicamente é necessário usar uma propriedade no ``formato \texttt{maven}" \\
+\begin{verbatim}
+${<nome da propriedade>}
+\end{verbatim}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Filtrando Recursos de  \textit{classpath}}
+
+\begin{block}
+
+Essa propriedade pode estar definida em:
+
+\begin{itemize}
+\item \texttt{pom.xml}
+\item \texttt{settings.xml}
+\item Um arquivo de propriedades externo
+\item Propriedade de sistema
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Filtrando Recursos de \textit{Classpath}}
+
+Para filtrar propriedades é necessário ativar o processo de filtragem:
+
+\begin{block}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/filtering-01.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Referenciando propriedades definidas no \texttt{pom.xml}}
+
+\begin{block}
+
+\begin{verbatim}
+${minha.propriedade}
+${project.name}
+${project.version}
+${project.build.finalName}
+\end{verbatim}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Referenciando propriedades}
+
+\begin{block}{Exercício}
+
+\begin{itemize}
+\item Edite o arquivo: \\
+\texttt{src/main/resources/application.properties}
+\item Insira o seguinte conteúdo no arquivo: \\
+\begin{verbatim}
+# application.properties
+application.name=${project.name}
+application.version=${project.version}
+minha.propriedade=${minha.propriedade}
+\end{verbatim}
+
+\item Execute o seguinte comando: \\
+\texttt{mvn process-resources}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Referenciando propriedades definidas em um arquivo externo}
+
+\begin{block}{Exercício}
+
+\begin{itemize}
+
+\item Crie o arquivo \\
+\texttt{src/main/\textcolor{red}{filters}/filter.properties}
+\item Insira o seguinte conteúdo no arquivo: \\
+\begin{verbatim}
+# filter.properties
+my.filter.value=ola!
+\end{verbatim}
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Referenciando propriedades definidas em um arquivo externo}
+
+Adicione a referência no \texttt{pom.xml}
+
+\begin{block}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/filtering-02.xml} 
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Referenciando propriedades definidas em um arquivo externo}
+
+\begin{block}{Exercício}
+
+\begin{itemize}
+\item Adicionar a referência a propriedade em:  \\
+\texttt{src/main/resources/application.properties}
+\item 
+\begin{verbatim}
+# application.properties
+application.name=${project.name}
+application.version=${project.version}
+minha.propriedade=${minha.propriedade}
+mensagem=${my.filter.value}
+\end{verbatim}
+
+\item Execute o seguinte comando: \\
+\texttt{mvn process-resources}
+
+\item Verifique o resultado em: \\
+\texttt{my-app/target/classes}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Referenciando propriedades de sistema e em linha de comando}
+
+\begin{block}{Exercício}
+
+\begin{itemize}
+\item Propriedades de sistema:
+\begin{verbatim}
+java.home
+user.home
+\end{verbatim}
+\item Propriedades definidas em linha de comando usando o parâmetro padrão do java \texttt{-D} \\
+\texttt{mvn process-resources "-Dpropriedade=valor"}
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Referenciando propriedades de sistema e em linha de comando}
+
+\begin{block}{Exercício}
+
+\begin{itemize}
+\item Acrescente no arquivo:
+\texttt{src/main/resources/application.properties}
+\begin{verbatim}
+java.version=${java.version}
+user.home=${user.home}
+command.line.prop=${command.line.prop}
+\end{verbatim}
+\item Execute o seguinte comando: \\
+\begin{verbatim}
+mvn process-resources
+  -Dcommand.line.prop="Ola novamente!"
+\end{verbatim}
+
+\item Verifique o resultado em: \\
+\texttt{my-app/target/classes}
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Introdução ao Maven}}
+\centerline{Parte 2}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Mecanismo de Dependência}
+
+\begin{block}
+
+\begin{itemize}
+\item \textcolor{red}{Dependências transitivas} são uma nova característica no \texttt{Maven} 2.0
+\item Permite evitar a necessidade de descobrir e especificar as bibliotecas que as suas próprias dependências necessitam, pois são incluídas automaticamente.
+\item Viabilizada pela leitura dos arquivos de projeto de suas dependências a partir dos repositórios remotos especificados.
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Mecanismo de Dependência}
+
+\begin{block}{Exercício}
+
+Adicione a seguinte dependência ao projeto \texttt{``my-app"}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/dependency.xml} 
+
+Execute o comando abaixo para ver como \texttt{Maven} gerencia as novas dependências: \\
+\texttt{mvn dependency:tree}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Mecanismo de Dependência}
+
+\begin{block}
+
+\texttt{mvn dependency:tree}
+
+\end{block}
+
+\begin{figure}
+\includegraphics[scale=0.35]{./images/maven-12.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Escopo de Dependência}
+
+\begin{block}
+
+\begin{itemize}
+\item Todas as dependências são usadas no projeto, sejam herdadas de projetos pai ou a partir das  dependências.
+\item O escopo da dependência é usado para limitar a transitividade de uma dependência. Há cinco escopos disponíveis: \\
+\begin{verbatim}
+Compile
+Provided
+Runtime
+Test
+System
+\end{verbatim}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Escopo de Dependência}
+
+\begin{block}
+
+\textcolor{red}{compile}: esse é o escopo padrão, usado quando nenhum é especificado.
+
+\begin{itemize}
+\item Dependências de compilação estão disponíveis em todos os \textit{classpaths} de um projeto
+\item Essas dependências são propagadas para os projetos dependentes.
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Escopo de Dependência}
+
+\begin{block}
+
+\textcolor{red}{provided}: muito parecido com o compile, mas indica que o JDK ou um contêiner fornecerá a dependência em tempo de execução.
+
+\begin{itemize}
+\item Por exemplo,  quando construindo um aplicação web para J2EE, você configurará a dependência da API do Servlet e as APIs Java EE relacionadas ao escopo de \texttt{provided} porque o contêiner web fornece essas classes.
+\item Esse escopo está somente disponível para o classpath de compilação e não é transitivo.
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Escopo de Dependência}
+
+\begin{block}
+
+\textcolor{red}{runtime}: indica que a dependência não é necessária para compilação, mas é para execução. Está no \textit{classpath} de \textit{runtime} e \textit{test}, mas não no \textit{classpath} de compile.
+
+\end{block}
+
+\begin{block}
+
+\textcolor{red}{test}: esse escopo indica que a dependência não é necessária para uso normal da aplicação e é somente necessária para a compilação e execução da fase de teste.
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Escopo de Dependência}
+
+\begin{block}
+
+\textcolor{red}{system}: esse escopo é similar ao \textcolor{red}{provided} exceto que você tem que fornecer o JAR que o contém explicitamente. O artefato está sempre disponível e nunca é procurado no repositório.
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/dependency-02.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Escopo de Dependência}
+
+\begin{block}
+
+Um dependência com escopo de \texttt{system} para ser empacotada junto com a aplicação tem que estar em: \\
+\begin{verbatim}
+${basedir}/src/main/lib/
+\end{verbatim}
+
+Isso significa que:
+
+\begin{itemize}
+\item A dependência deve ser adicionada ao controle de versão.
+\item Caso contrário, alguém pode não conseguir executar a aplicação em outra máquina/ambiente.
+\item O servidor de Integração Contínua pode falhar ao tentar realizar uma build pois não encontrará a dependência.
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Escopo de Dependência}
+
+\begin{block}{É possível instalar uma dependência no repositório local}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/dependency-03.xml} 
+
+\begin{verbatim}
+mvn install:install-file
+    -DgroupId=br.teste 
+    -DartifactId=dependencia-teste 
+    -Dversion=1.1.2 
+    -Dpackaging=jar 
+    -Dfile=dependencia-teste-1.1.2.jar 
+    -DcreateChecksum=true 
+    -DgeneratePom=true
+\end{verbatim}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Escopo de Dependência}
+
+\begin{block}
+
+\begin{itemize}
+\item Para a abordagem anterior funcionar em outras máquinas/ambientes é necessário que cada máquina/ambiente instale a dependência no repositório local
+
+\item A IC-Integração Contínua pode falhar caso a dependência não seja instalada no repositório local que a IC usa
+
+\item Melhor caso: \\
+Instalar a dependência no repositório de rede \\
+Assim todos (IC e outros usuários) terão disponível a dependência
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Perfils (\textit{Profiles})}
+
+\begin{block}
+
+Perfis (\textit{Profiles}) são os meios pelos quais o \texttt{Maven} permite ao desenvolvedor criar \textcolor{red}{variações de ambiente} no ciclo de vida para acomodar tarefas como:
+
+\begin{itemize}
+\item Configurar o projeto em plataformas diferentes
+
+\item Com JVMs diferentes
+
+\item Testar com bancos de dados diferentes
+
+\item Referenciar os arquivos locais de sistema
+
+\item Gerar a aplicação com parâmetros de compilação diferentes
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Perfils (\textit{Profiles})}
+
+\begin{block}
+
+Perfis (\textit{Profiles}) são os meios pelos quais o \texttt{Maven} permite ao desenvolvedor criar \textcolor{red}{variações de ambiente} no ciclo de vida para acomodar tarefas como:
+
+\begin{itemize}
+
+\item Tipicamente, o desenvolvedor deverá encapsular o máximo possível de perfis no POM para garantir que o processo de \textcolor{red}{\textit{build}} seja \textcolor{red}{portável}
+
+\item Às vezes, o deve-se levar em consideração as variações dos sistemas (SO, BD, JVM, endereço de servidores), esse é o motivo pelo qual os perfis foram incluídos no \texttt{Maven}
+
+\item Perfis são especificados usando um subconjunto dos elementos disponíveis no POM e \textcolor{red}{podem ser ativados} de diversas formas
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Perfils (\textit{Profiles})}
+
+\begin{block}
+
+Perfis (\textit{Profiles}) são os meios pelos quais o \texttt{Maven} permite ao desenvolvedor criar \textcolor{red}{variações de ambiente} no ciclo de vida para acomodar tarefas como:
+
+\begin{itemize}
+
+\item Perfis modificam o POM em tempo de \texttt{build}. São usados como um conjunto complementar de parâmetros para o conjunto de ambientes alvo \\
+O caminho para a raiz do servidor de aplicação:
+desenvolvimento, testes, homologação, produção, etc. \\
+Parâmetros de acesso a banco de dados:
+desenvolvimento, testes, homologação, produção, etc.
+
+\item \textcolor{red}{Atenção}: Os perfis podem levar a resultados diferentes de \texttt{builds} partindo de membros diferentes de uma equipe
+
+\item \textcolor{red}{Perfis preservam a portabilidade de build}
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Onde definir um perfil?}
+
+\begin{itemize}
+
+\item No arquivo \texttt{Maven} de configuração para usuário:
+\begin{block}
+
+\begin{verbatim}
+<user_home>/.m2/settings.xml
+\end{verbatim}
+
+\end{block}
+
+\item Em um arquivo no mesmo diretório do POM, chamado de \texttt{profiles.xml}
+
+\item No próprio POM
+
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Perfils}
+
+\begin{itemize}
+
+\item Perfis em \texttt{settings.xml} tem o potencial de afetar todos as \texttt{builds}, logo eles são um tipo perfil \textbf{global}
+
+\item \texttt{profiles.xml} permite que estendam um projeto sem alterar o POM
+
+\item Perfis baseados em POM são recomendados, desde que esses sejam portáveis, ou seja, eles serão publicados no repositório de distribuição e ficarão disponibilizados para \texttt{builds} subsequentes
+
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Perfil usando \texttt{profiles.xml}}
+
+\begin{block}{Crie o arquivo \texttt{profiles.xml} no mesmo nível que o \texttt{pom.xml}}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/profiles-01.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Ativação de um Perfil}
+
+\begin{block}
+
+\begin{itemize}
+
+\item Explicitamente usando a opção: \textcolor{red}{-P}
+
+\item Essa opção usa um argumento que contém uma lista de identificadores de perfis delimitados por vírgula
+
+\item Quando essa opção é especificada, nenhum outro perfil será ativado \\
+
+\begin{verbatim}
+mvn clean install -Pprofile1,profile2
+mvn clean install -Pdesenvolvimento
+mvn clean install -Dambiente=desenvolvimento
+\end{verbatim}
+
+\item Veja como o arquivo \texttt{application.properties} ficou
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Ativação de um Perfil}
+
+\begin{columns}[c]
+
+\column{.5\textwidth}
+
+\begin{block}
+
+\begin{itemize}
+
+\item Usando o \texttt{settings.xml} do \texttt{Maven}, através da seção \textbf{\texttt{activeProfiles}}
+
+\item Essa seção usa uma lista de elementos de \texttt{activeProfile}, cada um contendo um  identificador de perfil.
+
+\end{itemize}
+
+\end{block}
+
+\column{.5\textwidth}
+\begin{figure}
+\includegraphics[scale=0.55]{./images/profiles-01.png}
+\end{figure}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Ativação de um Perfil}
+
+\begin{block}
+
+Crie o arquivo 
+\begin{verbatim} 
+<user_home>/.m2/settings.xml 
+\end{verbatim}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\scriptsize,
+linenos]{xml}{./source-code/profiles-02.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Ativação de um Perfil}
+
+\begin{block}
+
+\begin{itemize}
+
+\item Por exemplo
+\begin{verbatim}
+mvn clean install -Pdesenvolvimento,curso
+mvn clean install -Dambiente=desenvolvimento -Pcurso
+\end{verbatim}
+
+\item Veja como o arquivo \texttt{application.properties} ficou
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Introdução ao Maven}}
+\centerline{Parte 3}
+\end{block}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Geração de Relatórios de \texttt{Build}}
+
+\begin{block}{Maven tem a capacidade de gerar relatórios de qualidade da \texttt{build}}
+
+\begin{itemize}
+
+\item Através de \texttt{plugins}
+
+\item Deve ser configurado através da tag \texttt{reporting} no \texttt{pom.xml}
+
+\item Comando abaixo gera todos os relatórios configurados \\
+\begin{verbatim}
+mvn clean site
+\end{verbatim}
+
+\item Descompacte o arquivo \texttt{dv-generator.zip} e execute o comando acima
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Geração de Relatórios de \texttt{Build}}
+
+\begin{block}{Gerados por plugins}
+
+\begin{columns}[c]
+
+\column{.5\textwidth}
+\begin{itemize}
+
+\item Checkstyle
+\item Cobertura Test Coverage 
+\item CPD Report 
+\item DashBoard Report 
+\item FindBugs Report 
+\item JavaDocs
+
+\end{itemize}
+
+\column{.5\textwidth}
+\begin{itemize}
+
+\item JavaNCSS Report 
+\item Maven Surefire Report 
+\item PMD Report 
+\item Source Xref 
+\item Test JavaDocs 
+\item Test Source Xref 
+
+\end{itemize}
+
+\end{columns}
+
+\end{block}
+
+Executado durante uma fase \textbf{\texttt{site}} da \texttt{build}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Fases do Maven}
+
+\begin{block}{\textit{Clean Lifecycle}}
+
+\begin{description}
+\item[pre-clean:] executa processos necessários antes da limpeza projeto
+\item[clean:] remove todos os arquivos gerados pela build anterior
+\item[post-clean:] executa os processos necessários para finalizar a limpeza do projeto
+\end{description}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Fases do Maven}
+
+\begin{block}{\textit{Default Lifecycle}}
+
+\begin{description}
+\item[validate:] valida se o projeto está correto e todas as informações necessárias estão  disponíveis
+\item[initialize:] inicializa o estado da build (definir propriedades ou criar diretórios)
+\item[generate-sources:] gera código fonte para compilação
+\item[process-sources:]processar o código fonte (filtragem de valores no código)
+\item[generate-resources:] gera os recursos a serem incluídos no pacote final
+\item[process-resources:] copia e processa os recursos para o diretório de destino, deixando pronto para empacotamento
+\item[compile:] compila o código fonte do projeto
+\item[process-classes:] pós-processo dos arquivos gerados a partir de compilação
+\end{description}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Fases do Maven}
+
+\begin{block}{\textit{Default Lifecycle}}
+
+\begin{description}
+
+\item[generate-test-sources:] gera código fonte de teste para compilação
+\item[process-test-sources:] processa o código fonte de teste (filtragem de valores no código)
+\item[generate-test-resources:] cria os recursos para teste
+\item[process-test-resources:] copia e processa os recursos para o diretório de destino de teste
+\item[test-compile:] compilar o código fonte de teste no diretório de destino teste
+\item[process-test-classes:] pós-processa os arquivos gerados a partir de compilação de teste
+\item[test:] executar testes usando um framework de testes unidade
+
+\end{description}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Fases do Maven}
+
+\begin{block}{\textit{Default Lifecycle}}
+
+\begin{description}
+
+\item[prepare-package:] realiza todas as operações necessárias para preparar um pacote antes do empacotamento. Resulta em uma versão descompactada do pacote.
+\item[package:] pega o código compilado e empacota em seu formato distribuível (JAR, WAR, EAR, SAR, etc).
+\item[pre-integration-test:] executa ações necessárias antes dos testes de integração. Pode envolver tarefas como a criação do ambiente.
+\item[integration-test:] processa e implanta o pacote (se necessário) em um ambiente onde os testes de integração podem ser executados.
+\item[post-integration-test:] executa ações necessárias após os testes de integração. Pode limpar o meio ambiente.
+\item[verify:] executa todos os controles para verificar se o pacote é válido e atende aos critérios de qualidade.
+\end{description}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Fases do Maven}
+
+\begin{block}{\textit{Default Lifecycle}}
+
+\begin{description}
+
+\item[install:] instala o pacote no repositório local, para uso como uma dependência em outros projetos localmente.
+\item[deploy:] feito em um ambiente de integração ou liberação, copia o pacote final para o repositório remoto para compartilhar com outros desenvolvedores e projetos.
+
+\end{description}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Fases do Maven}
+
+\begin{block}{\textit{Site Lifecycle}}
+
+\begin{description}
+
+\item[pre-site:] executa processos necessários antes da geração
+\item[site:] gera o site do projeto de documentação
+\item[post-site:] executa os processos necessários para finalizar a geração site
+\item[site-deploy:] implanta a documentação do site gerado para o servidor da Web especificado
+\end{description}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Configurando os Relatórios}
+
+\begin{block}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\tiny,
+linenos]{xml}{./source-code/relatorios-02.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Configurando os Relatórios}
+
+\begin{block}
+
+\inputminted[
+frame=lines,
+numbersep=2pt,
+%bgcolor=LightGray,
+fontsize=\tiny,
+linenos]{xml}{./source-code/relatorios-01.xml} 
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile]
+
+\frametitle{Configurando os Relatórios}
+
+\begin{block}{\texttt{Plugins} mais utilizados}
+
+\begin{itemize}
+
+\item org.apache.maven.plugins:\textbf{maven-jxr-plugin}
+\item org.apache.maven.plugins:\textbf{maven-surefire-report-plugin}
+\item org.codehaus.mojo:\textbf{cobertura-maven-plugin}
+\item org.codehaus.mojo:\textbf{javancss-maven-plugin}
+\item org.apache.maven.plugins:\textbf{maven-checkstyle-plugin}
+\item org.apache.maven.plugins:\textbf{maven-pmd-plugin}
+\item org.apache.maven.plugins:\textbf{maven-javadoc-plugin}
+\item org.codehaus.mojo:\textbf{findbugs-maven-plugin}
+\item org.codehaus.mojo:\textbf{dashboard-maven-plugin}
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

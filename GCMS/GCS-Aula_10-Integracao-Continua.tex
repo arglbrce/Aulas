@@ -1,0 +1,575 @@
+\documentclass[table]{beamer}
+
+\usepackage{GCS-Aula_00-Style}
+
+\input{GCS-Aula_00-Title.tex}
+
+% manni tango friendly pastie
+\usemintedstyle{borland}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{block}{\centerline{Integração Contínua de Software}}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Conceitos}
+
+\begin{block}
+
+A integração contínua descreve um conjunto de práticas de engenharia de software que acelera a entrega de software, diminuindo o tempo de integração
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Conceitos}
+
+\begin{block}{O que é Integração Contínua?}
+
+\begin{itemize}
+\item Uma prática de desenvolvimento de software onde membros de um time integram seu trabalho frequentemente
+\item Normalmente cada pessoa integra pelo menos uma vez ao dia, levando a múltiplas integrações por dia
+\item Cada integração é verificada por uma \textit{build} automatizada (Incluindo testes) para detectar erros de integração o mais rápido o possível
+\item Essa abordagem leva a uma redução dos problemas de integração e permite que a equipe desenvolva software coeso mais rapidamente
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Conceitos}
+
+\begin{block}{Como tudo começa?}
+
+\begin{itemize}
+
+\item Quando inicia uma mudança, o desenvolvedor obtém uma cópia da base de código atual em que irá trabalhar
+\item A medida que o código é alterado por outros desenvolvedores, esta cópia gradualmente deixa de refletir o código do repositório
+\item Quando o desenvolvedor deseja submeter seu código para o repositório, este deve primeiro atualizar sua cópia para refletir as alterações no repositório
+\item ...
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Conceitos}
+
+\begin{block}{Como tudo começa?}
+
+\begin{itemize}
+
+\item Quanto mais mudanças houver no repositório, mais trabalho o desenvolvedor terá antes de submeter suas próprias alterações
+\item Eventualmente, o repositório pode tornar-se tão diferente da cópia do desenvolvedor que este entra no que se chamar de \textbf{inferno de integração}
+\item Onde o tempo que leva para a integração é maior do que o tempo que levou para fazer as alterações
+\item Em um pior caso, as mudanças que o desenvolvedor está fazendo podem ter que ser descartadas e o trabalho refeito
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Conceitos}
+
+\begin{block}{Como evitar o retrabalho?}
+
+\begin{itemize}
+
+\item Integração Contínua é a prática de integração precoce e, muitas vezes, evita as armadilhas do \textbf{inferno de integração}
+\item O objetivo final é reduzir o retrabalho desnecessário e, assim, reduzir custos e tempo
+\item Devemos procurar as melhores práticas para conseguir a integração contínua
+\item A automatização é uma das melhores práticas
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Como surgiu}
+
+\begin{block}{Histórico}
+
+\begin{itemize}
+
+\item Integração Contínua surgiu com a comunidade de Extreme Programming (XP)
+\item Seus defensores Martin Fowler e Kent Beck foram os primeiros a escrever sobre a integração contínua perto da virada do milênio
+\item O artigo de Fowler (e depois um livro) é uma fonte importante de informação sobre o assunto
+\item O livro Extreme Programming Explained (1999, ISBN 0-201-61641-6) de Beck, que é a referência inicial para o XP, também descreve o termo. 
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}
+
+\begin{itemize}
+
+\item A integração contínua se refere à prática de integração frequente de um código com o código que está para ser entregue
+\item Geralmente no ramo principal do controle de versão, mas isso não é necessariamente uma regra
+\item O termo \textbf{frequência} está aberto à interpretação, mas muitas vezes é entendido como \textbf{muitas vezes a cada dia}
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas - Resumo}
+
+\begin{block}
+
+\begin{enumerate}
+
+\item Manter o código em um repositório
+\item Automatizar a \texttt{build}
+\item A \texttt{build} deve ser auto-testável
+\item Submeter (\texttt{commit}) o código todos os dias
+\item Todo \texttt{commit} no ramo principal gera \texttt{build}
+\item Mantenha a \texttt{build} rápida
+\item Teste em um clone do ambiente de produção 
+\item Torne fácil de obter as últimas versões
+\item Todos podem ver o resultado da \texttt{build} mais recente
+\item Automatize a Implantação do Sistema
+
+\end{enumerate}
+
+\end{block}
+
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Manter o código em um repositório}
+
+\begin{itemize}
+
+\item Esta prática preconiza a utilização de um sistema de controle de versão para o código fonte
+\item Todos os artefatos necessários para construir o projeto devem ser colocados no repositório
+\item O sistema deve ser capaz de ser construído (\texttt{build}) a partir de uma cópia limpa do controle de versão
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Manter o código em um repositório}
+
+\begin{itemize}
+
+\item Martin Fowler defende que, mesmo que \textbf{ramificações} (branch/fluxos) sejam suportadas pelas ferramentas, sua utilização deve ser \textbf{minimizada}
+\item É preferível que as mudanças sejam integradas ao invés de criar várias versões do software para serem mantidas simultaneamente
+\item A linha principal deve ser o lugar para a versão de trabalho do software
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Automatizar a build}
+
+\begin{itemize}
+
+\item Automação do \texttt{build}/integração, muitas vezes inclui a implantação em um ambiente semelhante ao de produção
+\item Em muitos casos, o \texttt{script} de \texttt{build} não só compila os binários, mas também gera documentação, páginas do site, estatísticas e os meios de distribuição.
+\item Exemplos: Windows MSI, RPM, deb, JAR, WAR, EAR e etc
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{A build deve ser auto-testável}
+
+\begin{itemize}
+
+\item Uma das melhores práticas, certamente a melhor, é o desenvolvimento orientado à testes
+\item Esta prática consiste em escrever um teste que demonstra como uma funcionalidade deve atuar, e então escrever o código que faz o teste passar
+\item Uma vez que o código é construído, todos os testes devem ser executados para confirmar se ele se comporta como o esperado
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Submeter (\texttt{commit}) o código todos os dias}
+
+\begin{itemize}
+
+\item Submeter as alterações no código regularmente, pode reduzir o número de alterações em conflito
+\item Efetuar \texttt{commit} no código de uma semana de trabalho, aumenta o risco de conflito com outras funções e pode ser muito difícil de resolver
+\item É mais fácil resolver pequenos conflitos, além de motivar os membros da equipe a se comunicarem para solucionar o problema
+\item É recomendado submeter todas as mudanças pelo menos uma vez por dia e além disso realizar uma \texttt{build} noturna
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Todo \texttt{commit} no ramo principal gera \texttt{build}}
+
+\begin{itemize}
+
+\item Todo \texttt{commit} deve ser construído para verificar se ele foi integrado corretamente
+\item Uma prática comum é usar o Ambiente de Integração Contínua, embora isso possa ser feito manualmente
+\item A integração manual deve ser feita antes do desenvolvedor submeter o código ao sistema de controle de versão
+\item Para muitos integração contínua é sinônimo de um servidor ou serviço que monitora o sistema de controle de versão atrás de mudanças, em seguida, executa automaticamente o processo de construção
+\item Este processo pode ser executado manualmente
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Mantenha a \texttt{build} rápida}
+
+\begin{itemize}
+
+\item A compilação deve ser rápida, pois se houver um problema com a integração, este será rapidamente identificado
+\item É ter cuidado com a desempenho dos testes automáticos
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Teste em um clone do ambiente de produção}
+
+\begin{itemize}
+
+\item Ter um ambiente de teste, com as mesmas características da produção, pode revelar falhas em sistemas testados antes que sejam implantados no ambiente de produção
+\item Ter um ambiente de testes muito diferente do de produção pode levar à falhas graves
+\item É aceitável que o ambiente de teste seja menos robusto, porém devemos ter cuidado com a desempenho do sistema na produção
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Torne fácil de obter as últimas versões}
+
+\begin{itemize}
+
+\item Tornar as \texttt{builds} prontamente disponíveis para o cliente e a equipe de testes pode reduzir a quantidade de retrabalho se for necessário reconstruir uma funcionalidade que não atende aos requisitos
+\item Além disso, o teste precoce reduz as chances de defeitos chegarem até a implantação
+\item Encontrar problemas antes da implantação também reduz a quantidade de trabalho necessário para resolvê-los
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Todos podem ver o resultado da \texttt{build} mais recente}
+
+\begin{itemize}
+
+\item Deve ser fácil descobrir se a \texttt{build} está quebrando e quem fez a alteração
+\item A intenção não é culpar quem cometeu o erro, mas resolver o problema
+\item É importante resolver o problema enquanto ele é pequeno
+\item É interessante usar um \texttt{site} para aqueles que não estão próximos fisicamente poderem ter uma ideia do estado do projeto
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Práticas Recomendadas}
+
+\begin{block}{Automatize a Implantação do Sistema}
+
+\begin{itemize}
+
+\item É importante ter \texttt{scripts} que permitam facilmente implantar a aplicação dentro de qualquer ambiente
+\item Uma consequência natural disto é ter \texttt{scripts} que permitam implantar o software dentro do ambiente de produção tão facilmente quanto nos outros ambientes
+\item O software pode não ser implantado no ambiente de produção todos os dias, mas implantações automáticas ajudam tanto a tornar o processo mais rápido quanto a reduzir erros
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Benefícios}
+
+\begin{block}
+
+\begin{itemize}
+
+\item Quando os testes de unidade falham, ou um \textit{bug} é descoberto, os desenvolvedores podem reverter o código para um estado livre de erro, sem desperdiçar o tempo de depuração
+\item Os problemas de integração são detectados e corrigidos continuamente - sem interrupção de último minuto antes de datas de lançamento
+\item O alerta precoce de código quebrado ou incompatíveis
+\item O alerta de alterações conflitantes
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Benefícios}
+
+\begin{block}
+
+\begin{itemize}
+
+\item Testes de unidade imediatos de todas as alterações
+\item Disponibilidade constante de uma \texttt{build} para propósitos de teste, homologação ou implantação
+\item O impacto imediato da verificação do código incompleto ou quebrado, é um incentivo para os desenvolvedores aprenderem a trabalhar de forma incremental com ciclos curtos de \textit{feedback}
+
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Benefícios}
+
+\begin{block}
+
+\begin{itemize}
+
+\item Integração Contínua não nos livra dos \textit{bugs}, mas os tornam mais fáceis de encontrar e remover
+\item \textit{Bugs} destroem a confiança, bagunçam os cronogramas e a reputação
+\item Com o trabalho em progresso com problemas, fica difícil ter o resto do software funcionando corretamente
+\item Os \textit{bugs} também são cumulativos: quanto mais tiver, mais difíceis de remover
+\item As pessoas têm menos energia para encontrar e eliminar erros se existem muitos: \\
+ \textbf{Fenômeno conhecido como a síndrome da Janela Quebrada}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Benefícios}
+
+\begin{block}
+
+\textit{O maior e mais abrangente benefício da Integração Contínua é a redução de riscos.}  \textbf{Martin Fowler}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Por onde começar?}
+
+\begin{block}
+
+\begin{itemize}
+\item Seguir o conjunto de práticas
+\item Não existe uma receita fixa
+\item Muita coisa depende da natureza do seu ambiente e do seu time
+\item Um dos primeiros passos é ter uma \texttt{build} automatizada
+\item Ter tudo o que precisa dentro do controle de versão
+\item Introduzir testes automatizados na sua \texttt{build}
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Por onde começar?}
+
+\begin{block}
+
+\begin{itemize}
+\item Tentar agilizar o \textbf{commit build}
+\item Integração Contínua com uma \texttt{build} de poucas horas é melhor do que nada
+\item Tentar diminuir para o número mágico de 10 minutos
+\item Ao começar um projeto novo, comece com a I.C. desde o início
+\item Acima de tudo tenha alguma ajuda: \\
+Consultoria \\
+Mentoria \\
+Estudo dedicado
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Concluindo...}
+
+\begin{block}{Como vimos...}
+
+\begin{description}
+
+\item[Build]: Consiste da compilação, teste, inspeção e \textit{deployment}, entre outras coisas. É o Software funcionando como uma unidade.
+\item[Build Privada]: Ao concluir uma tarefa o desenvolvedor deve rodar uma \texttt{build} privada (que integra as mudanças do resto do time). A \texttt{build} privada é gerada na estação do desenvolvedor.
+\item[Servidor de IC]: É uma máquina separada que possui a missão de integrar software. A máquina de integração de \texttt{build} hospeda o Servidor de I.C.
+
+\end{description}
+
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Concluindo...}
+
+\begin{figure}
+\includegraphics[scale=0.4]{./images/CI-01.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\frametitle{Concluindo...}
+
+\begin{figure}
+\includegraphics[scale=2.5]{./images/CI-02.jpg}
+\end{figure}
+
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,17 @@
+<project>
+   <!- ... -->
+   <build>
+    <filters>
+      <filter>src/main/filters/filter.properties</filter>
+   </filters>
+   <resources>
+      <resource>
+         <directory>src/main/resources</directory>
+         <filtering>true</filtering>
+      </resource>
+   </resources>
+</build>
+<dependencies>
+   <!- ... -->
+</dependencies>
+</project>

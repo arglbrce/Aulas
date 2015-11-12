@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<profilesXml xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/xsd/profiles-1.0.0.xsd">
+    <profiles>
+        <profile>
+            <id>desenvolvimento</id>
+            <properties>
+                <command.line.prop>Valor do profile.xml</command.line.prop>
+            </properties>
+            <activation>
+                <property>
+                    <name>ambiente</name>
+                    <value>desenvolvimento</value>
+                </property>
+            </activation>
+        </profile>
+    </profiles>
+</profilesXml>
